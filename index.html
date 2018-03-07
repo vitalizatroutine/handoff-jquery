@@ -150,18 +150,40 @@
                     </div>
                 </section>
             </form>
+            <section class="preview">
+                <div class="preview_container">
+                    <div class="zendesk-comment">
+                        <div class="event web regular">
+                            <div class="content" data-comment-id="367422407792">
+                                <div class="body" dir="auto">
+                                    <div id="ember8207" class="ember-view">
+                                        <div class="comment">
+                                            <div class="zd-comment" id="preview">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="preview_toggle"></span>
+            </section>
             <footer class="footer">
                 <section class="footer_components footer_components--right">
-                    <span class="button button--dark-slate">Preview</span>
-                    <span class="button button--citrus">Generate</span>
+                    <span class="button button--dark-slate">Copy Handoff</span>
+                    <span class="button button--citrus">Generate Handoff</span>
                 </section>
             </footer>
         </main>
 
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="js/vendor/mustache.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
+        <script src="js/templates.js"></script>
+        <!-- include file if looking to work on generated handoff template -->
+        <script src="js/sampleData.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
