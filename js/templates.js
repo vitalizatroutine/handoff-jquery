@@ -65,5 +65,23 @@ var templates = {
                 '<li>{{.}}</li>' +
             '{{/comments}}' +
         '</ol>'
+    ),
+    files: (
+        '<article class="field_item field_item--truncate">' +
+            '<span class="field_delete">-</span>' +
+            '<span class="field_value">{{.}}</span>' +
+        '</article>'
+    ),
+    links: (
+        '<article class="field_item field_item--truncate">' +
+            '<span class="field_delete">-</span>' +
+            '<a href="{{.}}" class="field_value" target="_blank">{{.}}</a>' +
+        '</article>'
+    ),
+    comments: (
+        '<article class="field_item field_item--comment">' +
+            '<span class="field_delete">-</span>' +
+            '<span class="field_value">{{.}}</span>' +
+        '</article>'
     )
 };
