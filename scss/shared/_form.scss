@@ -16,6 +16,7 @@ $form-gutter: 20px;
         @include clearfix;
         float: left;
         width: 100%;
+        max-width: 1020px;
         margin-bottom: 10px;
 
         &--half {

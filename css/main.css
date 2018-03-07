@@ -561,6 +561,7 @@ template {
   .form_section {
     float: left;
     width: 100%;
+    max-width: 1020px;
     margin-bottom: 10px; }
     .form_section:after {
       content: "";
