@@ -543,6 +543,9 @@ template {
 [hidden] {
   display: none; }
 
+.page {
+  padding-bottom: 80px; }
+
 .form {
   padding: 30px; }
   .form:after {
@@ -564,24 +567,25 @@ template {
       display: table;
       clear: both; }
     .form_section--half {
-      width: calc(50% - 10px);
-      margin-right: 10px; }
-      .form_section--half + .form_section--half {
-        margin-left: 10px;
-        margin-right: 0; }
+      width: 100%; }
     .form_section--no-margin {
       margin-bottom: 0; }
-    @media screen and (max-width: 1079px) {
+    @media screen and (min-width: 1080px) {
       .form_section--half {
-        width: 100%;
-        margin-right: 0; }
-        .form_section--half + .form_section--half {
-          margin-left: 0;
-          margin-right: 0; } }
+        width: calc(50% - 10px);
+        max-width: 500px; }
+        .form_section--half:nth-child(odd) {
+          margin-right: 10px; }
+        .form_section--half:nth-child(even) {
+          margin-left: 10px; }
+        .form_section--half:nth-child(2n + 1) {
+          clear: left; } }
   .form_item {
     float: left;
     margin-right: 20px;
     margin-bottom: 20px; }
+    .form_item--full {
+      width: 100%; }
     .form_item--break {
       clear: left; }
     .form_item--isolate {
@@ -642,17 +646,16 @@ template {
 
 .field {
   display: inline-block; }
-  .field--text .field_label {
+  .field--text .field_label, .field--textarea .field_label {
     display: block;
-    font-size: 13px;
     line-height: 22px; }
-  .field--text .field_crumb {
+  .field--text .field_crumb, .field--textarea .field_crumb {
     display: inline-block;
     color: #545b62;
     line-height: 40px; }
-    .field--text .field_crumb + input {
+    .field--text .field_crumb + input, .field--textarea .field_crumb + input {
       margin-left: 5px; }
-  .field--text .field_input {
+  .field--text .field_input, .field--textarea .field_input {
     display: inline-block;
     height: 40px;
     padding: 10px 8px;
@@ -661,13 +664,13 @@ template {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
     line-height: 40px; }
-    .field--text .field_input--short {
+    .field--text .field_input--short, .field--textarea .field_input--short {
       max-width: 150px; }
-    .field--text .field_input::placeholder {
+    .field--text .field_input::placeholder, .field--textarea .field_input::placeholder {
       font-family: "Open Sans", sans-serif; }
-    .field--text .field_input:focus {
+    .field--text .field_input:focus, .field--textarea .field_input:focus {
       outline: none; }
-    .field--text .field_input + span {
+    .field--text .field_input + span, .field--textarea .field_input + span {
       margin-left: 5px; }
   .field--checkbox .field_label {
     display: inline-block;
@@ -695,6 +698,97 @@ template {
   .field--tall {
     padding-top: 22px;
     line-height: 40px; }
+  .field--radio fieldset {
+    line-height: 40px; }
+  .field--radio .field_label {
+    display: inline-block;
+    line-height: 22px; }
+  .field--radio .field_input {
+    display: none; }
+    .field--radio .field_input + label:before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 8px;
+      background: #ffffff;
+      border: 4px solid #eeeeee;
+      border-radius: 50%;
+      color: #ffffff;
+      text-align: center;
+      line-height: 18px;
+      cursor: pointer;
+      vertical-align: text-bottom; }
+    .field--radio .field_input + label ~ label {
+      margin-left: 10px; }
+    .field--radio .field_input:checked + label:before {
+      background: #0f5ca3; }
+    .field--radio .field_input--teal:checked + label:before {
+      background: #1abc9c; }
+    .field--radio .field_input--citrus:checked + label:before {
+      background: #f1af0f; }
+  .field--list {
+    width: 100%;
+    position: relative; }
+    .field--list .field_items {
+      margin-bottom: 10px; }
+    .field--list .field_item {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: 1px solid #eeeeee; }
+      .field--list .field_item .field_value {
+        display: inline-block;
+        width: calc(100% - 38px);
+        padding: 10px 0;
+        line-height: 18px;
+        white-space: normal;
+        vertical-align: middle; }
+      .field--list .field_item--truncate {
+        line-height: 40px; }
+        .field--list .field_item--truncate .field_value {
+          display: inline;
+          width: auto;
+          padding: 0;
+          white-space: nowrap; }
+      .field--list .field_item:first-child {
+        border-top: 1px solid #eeeeee; }
+    .field--list .field_input {
+      width: calc(100% - 40px); }
+    .field--list .field_submit {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: block;
+      width: 40px;
+      height: 40px;
+      background-color: #0f5ca3;
+      color: #ffffff;
+      font-size: 28px;
+      text-align: center;
+      line-height: 40px;
+      cursor: pointer; }
+    .field--list .field_delete {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background-color: #e74c3c;
+      color: #ffffff;
+      text-align: center;
+      line-height: 16px;
+      vertical-align: middle;
+      cursor: pointer; }
+  .field--textarea .field_input {
+    display: block;
+    height: 160px;
+    line-height: 18px;
+    resize: none; }
+  .field--textarea .field_submit {
+    height: 160px;
+    line-height: 160px; }
 
 /*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
 /*
@@ -712,6 +806,10 @@ html {
   color: #2a3035; }
   html * {
     box-sizing: border-box; }
+
+a {
+  color: #3498db;
+  text-decoration: none; }
 
 /*
  * Remove text-shadow in selection highlight:

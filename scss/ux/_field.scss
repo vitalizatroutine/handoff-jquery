@@ -1,14 +1,14 @@
 $label-height: 22px;
 $input-height: 40px;
+$submit-width: 40px;
 
 .field {
     display: inline-block;
 
-    &--text {
+    &--text, &--textarea {
         .field {
             &_label {
                 display: block;
-                font-size: $body-font-size;
                 line-height: $label-height;
             }
             &_crumb {
@@ -90,10 +90,142 @@ $input-height: 40px;
     }
 
     &--radio {
+        fieldset {
+            line-height: 40px;
+        }
+
         .field {
             &_label {
+                display: inline-block;
+                line-height: $label-height;
             }
             &_input {
+                display: none;
+
+                & + label {
+
+                    &:before {
+                        content: "";
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                        margin-right: 8px;
+                        background: $white;
+                        border: 4px solid $light-grey;
+                        border-radius: 50%;
+                        color: $white;
+                        text-align: center;
+                        line-height: 18px;
+                        cursor: pointer;
+                        vertical-align: text-bottom;
+                    }
+
+                    & ~ label {
+                        margin-left: $form-gutter / 2;
+                    }
+                }
+                &:checked + label:before {
+                    background: $q4-blue;
+                }
+
+                &--teal {
+                    &:checked + label:before {
+                        background: $teal;
+                    }
+                }
+                &--citrus {
+                    &:checked + label:before {
+                        background: $citrus;
+                    }
+                }
+            }
+        }
+    }
+
+    &--list {
+        width: 100%;
+        position: relative;
+
+        .field {
+            &_items {
+                margin-bottom: $form-gutter / 2;
+            }
+            &_item {
+                width: 100%;
+                @include truncate();
+                border-bottom: 1px solid $light-grey;
+
+                .field {
+                    &_value {
+                        display: inline-block;
+                        width: calc(100% - 38px);
+                        padding: ($form-gutter / 2) 0;
+                        line-height: 18px;
+                        white-space: normal;
+                        vertical-align: middle;
+                    }
+                }
+
+                &--truncate {
+                    line-height: $input-height;
+
+                    .field {
+                        &_value {
+                            display: inline;
+                            width: auto;
+                            padding: 0;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+                &:first-child {
+                    border-top: 1px solid $light-grey;
+                }
+            }
+            &_input {
+                width: calc(100% - #{$input-height});
+            }
+            &_submit {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                display: block;
+                width: $submit-width;
+                height: $input-height;
+                background-color: $q4-blue;
+                color: $white;
+                font-size: 28px;
+                text-align: center;
+                line-height: $input-height;
+                cursor: pointer;
+            }
+            &_delete {
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                margin-right: 8px;
+                border-radius: 50%;
+                background-color: $cherry;
+                color: $white;
+                text-align: center;
+                line-height: 16px;
+                vertical-align: middle;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &--textarea {
+        .field {
+            &_input {
+                display: block;
+                height: $input-height * 4;
+                line-height: 18px;
+                resize: none;
+            }
+            &_submit {
+                height: $input-height * 4;
+                line-height: $input-height * 4;
             }
         }
     }

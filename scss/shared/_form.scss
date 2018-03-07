@@ -19,26 +19,25 @@ $form-gutter: 20px;
         margin-bottom: 10px;
 
         &--half {
-            width: calc(50% - #{$form-gutter / 2});
-            margin-right: $form-gutter / 2;
-
-            & + & {
-                margin-left: $form-gutter / 2;
-                margin-right: 0;
-            }
+            width: 100%;
         }
         &--no-margin {
             margin-bottom: 0;
         }
 
-        @media screen and (max-width: 1079px) {
+        @media screen and (min-width: 1080px) {
             &--half {
-                width: 100%;
-                margin-right: 0;
+                width: calc(50% - #{$form-gutter / 2});
+                max-width: 500px;
 
-                & + & {
-                    margin-left: 0;
-                    margin-right: 0;
+                &:nth-child(odd) {
+                    margin-right: $form-gutter / 2;
+                }
+                &:nth-child(even) {
+                    margin-left: $form-gutter / 2;
+                }
+                &:nth-child(2n + 1) {
+                    clear: left;
                 }
             }
         }
@@ -49,6 +48,9 @@ $form-gutter: 20px;
         margin-right: $form-gutter;
         margin-bottom: $form-gutter;
 
+        &--full {
+            width: 100%;
+        }
         &--break {
             clear: left;
         }
