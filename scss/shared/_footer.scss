@@ -1,0 +1,17 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: $slate;
+    padding: 20px 30px;
+
+    &_components {
+        &--right {
+            float: right;
+        }
+        &--left {
+            float: left;
+        }
+    }
+}

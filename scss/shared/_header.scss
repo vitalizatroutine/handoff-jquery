@@ -1,0 +1,14 @@
+.header {
+    height: 80px;
+    padding: 0 30px;
+    background-color: $q4-blue;
+    line-height: 80px;
+
+    &_title {
+        margin: 0;
+        font-family: $body-font-family;
+        font-weight: $body-font-weight;
+        font-size: 20px;
+        color: $white;
+    }
+}

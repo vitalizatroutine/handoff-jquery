@@ -1,0 +1,59 @@
+$form-gutter: 20px;
+
+.form {
+    @include clearfix();
+    padding: 30px;
+
+    &_title {
+        margin: 0 0 $form-gutter;
+        padding: 0;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 400;
+    }
+
+    &_section {
+        @include clearfix;
+        float: left;
+        width: 100%;
+        margin-bottom: 10px;
+
+        &--half {
+            width: calc(50% - #{$form-gutter / 2});
+            margin-right: $form-gutter / 2;
+
+            & + & {
+                margin-left: $form-gutter / 2;
+                margin-right: 0;
+            }
+        }
+        &--no-margin {
+            margin-bottom: 0;
+        }
+
+        @media screen and (max-width: 1079px) {
+            &--half {
+                width: 100%;
+                margin-right: 0;
+
+                & + & {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    &_item {
+        float: left;
+        margin-right: $form-gutter;
+        margin-bottom: $form-gutter;
+
+        &--break {
+            clear: left;
+        }
+        &--isolate {
+            margin-left: $form-gutter * 3;
+        }
+    }
+}

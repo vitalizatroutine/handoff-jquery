@@ -1,0 +1,100 @@
+$label-height: 22px;
+$input-height: 40px;
+
+.field {
+    display: inline-block;
+
+    &--text {
+        .field {
+            &_label {
+                display: block;
+                font-size: $body-font-size;
+                line-height: $label-height;
+            }
+            &_crumb {
+                display: inline-block;
+                color: $light-slate;
+                line-height: $input-height;
+
+                & + input {
+                    margin-left: 5px;
+                }
+            }
+            &_input {
+                display: inline-block;
+                height: $input-height;
+                padding: 10px 8px;
+                border: none;
+                background: $light-grey;
+                font-family: $body-font-family;
+                font-weight: $body-font-weight;
+                line-height: $input-height;
+
+                &--short {
+                    max-width: 150px;
+                }
+
+                &::placeholder {
+                    font-family: $body-font-family;
+                }
+                &:focus {
+                    outline: none;
+                }
+
+                & + span {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+
+    &--checkbox {
+        .field {
+            &_label {
+                display: inline-block;
+                line-height: $label-height;
+            }
+            &_input {
+                display: none;
+
+                & + label:before {
+                    content: "";
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    background: $light-grey;
+                    border-radius: 3px;
+                    color: $white;
+                    text-align: center;
+                    line-height: 18px;
+                    cursor: pointer;
+                    vertical-align: text-bottom;
+                }
+                &:checked + label:before {
+                    content: "\2713";
+                    background: $q4-blue;
+                }
+
+                &--teal {
+                    &:checked + label:before {
+                        background: $teal;
+                    }
+                }
+            }
+        }
+    }
+    &--tall {
+        padding-top: $label-height;
+        line-height: $input-height;
+    }
+
+    &--radio {
+        .field {
+            &_label {
+            }
+            &_input {
+            }
+        }
+    }
+}

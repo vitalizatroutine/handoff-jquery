@@ -1,0 +1,43 @@
+.button {
+  display: inline-block;
+  padding: 0 20px;
+  border-radius: 3px;
+  background-color: $q4-blue;
+  color: $white;
+  font-size: $body-font-size;
+  font-weight: $body-font-weight;
+  text-transform: uppercase;
+  line-height: 36px;
+  cursor: pointer;
+
+  & + & {
+    margin-left: 6px;
+  }
+
+  &--citrus {
+    background-color: $citrus;
+    color: $dark-slate;
+
+    &:hover {
+      background-color: $mustard;
+    }
+  }
+
+  &--dark-slate {
+    background-color: $dark-slate;
+    color: $white;
+
+    &:hover {
+      background-color: $raisin;
+    }
+  }
+
+  &--transparent {
+    background-color: transparent;
+    color: $pale-grey;
+
+    &:hover {
+      background-color: mix(transparent, $dark-slate, 90%);
+    }
+  }
+}
