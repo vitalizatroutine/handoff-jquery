@@ -828,11 +828,256 @@ template {
     padding-right: 20px;
     overflow-y: scroll; }
 
-.zendesk-comment {
-  padding: 30px;
-  border: 1px solid orange;
-  border-radius: 5px;
-  background-color: tan; }
+/* Imported Zendesk Styles */
+.zendesk-comment html, .zendesk-comment body, .zendesk-comment div, .zendesk-comment span, .zendesk-comment object, .zendesk-comment iframe,
+.zendesk-comment h1, .zendesk-comment h2, .zendesk-comment h3, .zendesk-comment h4, .zendesk-comment h5, .zendesk-comment h6, .zendesk-comment p, .zendesk-comment blockquote, .zendesk-comment pre,
+.zendesk-comment abbr, .zendesk-comment address, .zendesk-comment cite, .zendesk-comment code,
+.zendesk-comment del, .zendesk-comment dfn, .zendesk-comment em, .zendesk-comment img, .zendesk-comment ins, .zendesk-comment kbd, .zendesk-comment q, .zendesk-comment samp,
+.zendesk-comment small, .zendesk-comment strong, .zendesk-comment sub, .zendesk-comment sup, .zendesk-comment var,
+.zendesk-comment b, .zendesk-comment i,
+.zendesk-comment dl, .zendesk-comment dt, .zendesk-comment dd, .zendesk-comment ol, .zendesk-comment ul, .zendesk-comment li,
+.zendesk-comment fieldset, .zendesk-comment form, .zendesk-comment label, .zendesk-comment legend,
+.zendesk-comment table, .zendesk-comment caption, .zendesk-comment tbody, .zendesk-comment tfoot, .zendesk-comment thead, .zendesk-comment tr,
+.zendesk-comment article, .zendesk-comment aside, .zendesk-comment canvas, .zendesk-comment details, .zendesk-comment figcaption, .zendesk-comment figure,
+.zendesk-comment footer, .zendesk-comment header, .zendesk-comment hgroup, .zendesk-comment menu, .zendesk-comment nav, .zendesk-comment section, .zendesk-comment summary,
+.zendesk-comment time, .zendesk-comment mark, .zendesk-comment audio, .zendesk-comment video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent; }
+
+.zendesk-comment td, .zendesk-comment th {
+  margin: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent; }
+
+.zendesk-comment a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+.zendesk-comment table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+.zendesk-comment hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0; }
+
+.zendesk-comment body {
+  font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif; }
+
+.zendesk-comment strong, .zendesk-comment em, .zendesk-comment b, .zendesk-comment i, .zendesk-comment h1, .zendesk-comment h2, .zendesk-comment h3, .zendesk-comment h4, .zendesk-comment h5, .zendesk-comment h6, .zendesk-comment address {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif; }
+
+.zendesk-comment body, .zendesk-comment select, .zendesk-comment input, .zendesk-comment textarea {
+  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
+  color: #555;
+  /* set your base font here, to apply evenly */
+  /* font-family: Georgia, serif;  */ }
+
+.zendesk-comment h1, .zendesk-comment h2, .zendesk-comment h3, .zendesk-comment h4, .zendesk-comment h5, .zendesk-comment h6 {
+  font-weight: 600; }
+
+.zendesk-comment ul, .zendesk-comment ol {
+  margin-left: 1.8em; }
+
+.zendesk-comment strong, .zendesk-comment b, .zendesk-comment th {
+  font-weight: 600; }
+
+.zendesk-comment td, .zendesk-comment td img {
+  vertical-align: top; }
+
+.zendesk-comment a, .zendesk-comment label, .zendesk-comment input[type="button"], .zendesk-comment input[type="submit"], .zendesk-comment input[type="image"], .zendesk-comment button {
+  cursor: pointer; }
+
+.zendesk-comment a:link {
+  -webkit-tap-highlight-color: #FF5E99; }
+
+.zendesk-comment a, .zendesk-comment a:hover {
+  text-decoration: none; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment, .zendesk-comment .markdown_formatting, .zendesk-comment .markdown_preview, .zendesk-comment .event .comment {
+  word-wrap: break-word;
+  font-size: 14px;
+  line-height: 20px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment.zendesk-editor--rich-text-comment ul, .zendesk-comment .zendesk-editor--rich-text-comment.zendesk-editor--rich-text-comment ol, .zendesk-comment .markdown_formatting.zendesk-editor--rich-text-comment ul, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ul, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ul, .zendesk-comment .markdown_formatting.zendesk-editor--rich-text-comment ol, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ol, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ol {
+  margin: 0px 15px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment.zendesk-editor--rich-text-comment ul li,
+.zendesk-comment .zendesk-editor--rich-text-comment.zendesk-editor--rich-text-comment ol li, .zendesk-comment .markdown_formatting.zendesk-editor--rich-text-comment ul li, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ul li, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ul li,
+.zendesk-comment .markdown_formatting.zendesk-editor--rich-text-comment ol li, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ol li, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ol li {
+  margin: 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment.markdown_formatting ul, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ul, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ul, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_formatting ol, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ol, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ol, .zendesk-comment .markdown_formatting.markdown_formatting ul, .zendesk-comment .markdown_preview ul, .zendesk-comment .event .comment ul, .zendesk-comment .markdown_formatting.markdown_formatting ol, .zendesk-comment .markdown_preview ol, .zendesk-comment .event .comment ol {
+  margin: -8px 0 15px 15px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment.markdown_formatting ul li, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ul li, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ul li,
+.zendesk-comment .zendesk-editor--rich-text-comment.markdown_formatting ol li, .zendesk-comment .zendesk-editor--rich-text-comment.markdown_preview ol li, .zendesk-comment .event .zendesk-editor--rich-text-comment.comment ol li, .zendesk-comment .markdown_formatting.markdown_formatting ul li, .zendesk-comment .markdown_preview ul li, .zendesk-comment .event .comment ul li,
+.zendesk-comment .markdown_formatting.markdown_formatting ol li, .zendesk-comment .markdown_preview ol li, .zendesk-comment .event .comment ol li {
+  margin: 10px 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment p,
+.zendesk-comment .zendesk-editor--rich-text-comment blockquote p,
+.zendesk-comment .zendesk-editor--rich-text-comment ul li,
+.zendesk-comment .zendesk-editor--rich-text-comment ol li,
+.zendesk-comment .zendesk-editor--rich-text-comment ul li p,
+.zendesk-comment .zendesk-editor--rich-text-comment ol li p, .zendesk-comment .markdown_formatting p, .zendesk-comment .markdown_preview p, .zendesk-comment .event .comment p,
+.zendesk-comment .markdown_formatting blockquote p, .zendesk-comment .markdown_preview blockquote p, .zendesk-comment .event .comment blockquote p,
+.zendesk-comment .markdown_formatting ul li, .zendesk-comment .markdown_preview ul li, .zendesk-comment .event .comment ul li,
+.zendesk-comment .markdown_formatting ol li, .zendesk-comment .markdown_preview ol li, .zendesk-comment .event .comment ol li,
+.zendesk-comment .markdown_formatting ul li p, .zendesk-comment .markdown_preview ul li p, .zendesk-comment .event .comment ul li p,
+.zendesk-comment .markdown_formatting ol li p, .zendesk-comment .markdown_preview ol li p, .zendesk-comment .event .comment ol li p {
+  font-size: 14px;
+  line-height: 20px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment p, .zendesk-comment .markdown_formatting p, .zendesk-comment .markdown_preview p, .zendesk-comment .event .comment p {
+  margin: 0 0 16px 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment div.zd-comment div:not(.signature) p, .zendesk-comment .markdown_formatting div.zd-comment div:not(.signature) p, .zendesk-comment .markdown_preview div.zd-comment div:not(.signature) p, .zendesk-comment .event .comment div.zd-comment div:not(.signature) p {
+  margin: 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h1, .zendesk-comment .zendesk-editor--rich-text-comment h2, .zendesk-comment .zendesk-editor--rich-text-comment h3,
+.zendesk-comment .zendesk-editor--rich-text-comment h4, .zendesk-comment .zendesk-editor--rich-text-comment h5, .zendesk-comment .zendesk-editor--rich-text-comment h6, .zendesk-comment .markdown_formatting h1, .zendesk-comment .markdown_preview h1, .zendesk-comment .event .comment h1, .zendesk-comment .markdown_formatting h2, .zendesk-comment .markdown_preview h2, .zendesk-comment .event .comment h2, .zendesk-comment .markdown_formatting h3, .zendesk-comment .markdown_preview h3, .zendesk-comment .event .comment h3,
+.zendesk-comment .markdown_formatting h4, .zendesk-comment .markdown_preview h4, .zendesk-comment .event .comment h4, .zendesk-comment .markdown_formatting h5, .zendesk-comment .markdown_preview h5, .zendesk-comment .event .comment h5, .zendesk-comment .markdown_formatting h6, .zendesk-comment .markdown_preview h6, .zendesk-comment .event .comment h6 {
+  color: #333;
+  font-weight: 600;
+  margin: 5px 0 5px;
+  text-transform: none; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h1, .zendesk-comment .markdown_formatting h1, .zendesk-comment .markdown_preview h1, .zendesk-comment .event .comment h1 {
+  font-size: 23px;
+  margin: 5px 0 15px;
+  line-height: 27px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h2, .zendesk-comment .markdown_formatting h2, .zendesk-comment .markdown_preview h2, .zendesk-comment .event .comment h2 {
+  font-size: 20px;
+  margin: 5px 0 10px;
+  line-height: 23px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h3, .zendesk-comment .markdown_formatting h3, .zendesk-comment .markdown_preview h3, .zendesk-comment .event .comment h3 {
+  font-size: 17px;
+  line-height: 21px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h4, .zendesk-comment .markdown_formatting h4, .zendesk-comment .markdown_preview h4, .zendesk-comment .event .comment h4 {
+  font-size: 15px;
+  line-height: 19px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h5, .zendesk-comment .markdown_formatting h5, .zendesk-comment .markdown_preview h5, .zendesk-comment .event .comment h5 {
+  font-size: 14px;
+  line-height: 20px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment h6, .zendesk-comment .markdown_formatting h6, .zendesk-comment .markdown_preview h6, .zendesk-comment .event .comment h6 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #777; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment blockquote, .zendesk-comment .markdown_formatting blockquote, .zendesk-comment .markdown_preview blockquote, .zendesk-comment .event .comment blockquote {
+  padding-left: 10px;
+  border-left: 2px solid #CCC;
+  margin: 0 0 16px 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment blockquote p, .zendesk-comment .markdown_formatting blockquote p, .zendesk-comment .markdown_preview blockquote p, .zendesk-comment .event .comment blockquote p {
+  color: #888;
+  font-weight: 400; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment blockquote li, .zendesk-comment .markdown_formatting blockquote li, .zendesk-comment .markdown_preview blockquote li, .zendesk-comment .event .comment blockquote li {
+  color: #888; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment ul, .zendesk-comment .markdown_formatting ul, .zendesk-comment .markdown_preview ul, .zendesk-comment .event .comment ul {
+  padding-left: 15px;
+  list-style: disc; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment ul li, .zendesk-comment .markdown_formatting ul li, .zendesk-comment .markdown_preview ul li, .zendesk-comment .event .comment ul li {
+  font-size: 14px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment ul li p, .zendesk-comment .markdown_formatting ul li p, .zendesk-comment .markdown_preview ul li p, .zendesk-comment .event .comment ul li p {
+  margin: 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment ol, .zendesk-comment .markdown_formatting ol, .zendesk-comment .markdown_preview ol, .zendesk-comment .event .comment ol {
+  padding-left: 15px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment ol li, .zendesk-comment .markdown_formatting ol li, .zendesk-comment .markdown_preview ol li, .zendesk-comment .event .comment ol li {
+  font-size: 14px; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment ol li p, .zendesk-comment .markdown_formatting ol li p, .zendesk-comment .markdown_preview ol li p, .zendesk-comment .event .comment ol li p {
+  margin: 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment img, .zendesk-comment .markdown_formatting img, .zendesk-comment .markdown_preview img, .zendesk-comment .event .comment img {
+  max-width: 100%; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment code, .zendesk-comment .markdown_formatting code, .zendesk-comment .markdown_preview code, .zendesk-comment .event .comment code {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: pre-wrap;
+  border: 1px solid #EAEAEA;
+  background-color: #F8F8F8;
+  border-radius: 3px;
+  font-family: Consolas, "Liberation Mono", Menlo, "Bitstream Vera Sans Mono", Courier, monospace; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment pre, .zendesk-comment .markdown_formatting pre, .zendesk-comment .markdown_preview pre, .zendesk-comment .event .comment pre {
+  background-color: #F8F8F8;
+  border: 1px solid #CCC;
+  line-height: 19px;
+  padding: 6px 10px;
+  border-radius: 3px;
+  margin: 15px 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment pre code, .zendesk-comment .markdown_formatting pre code, .zendesk-comment .markdown_preview pre code, .zendesk-comment .event .comment pre code {
+  font-family: Consolas, "Liberation Mono", Menlo, "Bitstream Vera Sans Mono", Courier, monospace;
+  background: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 0;
+  margin: 0;
+  padding: 0; }
+
+.zendesk-comment .zendesk-editor--rich-text-comment pre p, .zendesk-comment .markdown_formatting pre p, .zendesk-comment .markdown_preview pre p, .zendesk-comment .event .comment pre p {
+  margin: 0; }
+
+.zendesk-comment .rich_text .event .comment blockquote {
+  margin: 0; }
+
+.zendesk-comment .rich_text .event .comment blockquote p {
+  margin: 0; }
+
+.zendesk-comment .event .comment {
+  position: relative; }
+
+.zendesk-comment .event .comment .zd-comment:not(.zd-comment-pre-styled) table {
+  border-collapse: collapse;
+  font-size: 1em;
+  width: 100%; }
+
+.zendesk-comment .event .comment .zd-comment:not(.zd-comment-pre-styled) table td, .zendesk-comment .event .comment .zd-comment:not(.zd-comment-pre-styled) table th {
+  padding: 5px;
+  border: 1px solid #ddd;
+  vertical-align: top; }
+
+.zendesk-comment .event:not(.is-public) .comment {
+  background-color: #FFF6D9;
+  border: 1px solid #EFDAA3;
+  padding: 12px 16px 14px;
+  border-radius: 3px;
+  color: #333; }
+
+.zendesk-comment .event:not(.is-public) .comment .zd-comment {
+  margin-bottom: 0px; }
+
+.zendesk-comment .event:not(.is-public) .zd-comment {
+  margin-bottom: 12px; }
 
 /*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
 /*
