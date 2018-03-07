@@ -1,0 +1,51 @@
+.preview {
+    position: fixed;
+    top: 80px;
+    right: -1040px;
+    bottom: 80px;
+    width: 100%;
+    max-width: 1040px;
+    background-color: $pale-grey;
+    z-index: 5;
+    transition: ease-in-out 0.5s;
+
+    &--open {
+        right: -20px;
+    }
+
+    &_toggle {
+        position: absolute;
+        top: calc(50% - 20px);
+        left: -40px;
+        width: 40px;
+        height: 40px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        background-color: $citrus;
+        color: $slate;
+        font-size: 24px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+
+        &:before {
+            content: "\1F441";
+        }
+    }
+    &_container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 0;
+        bottom: 20px;
+        padding-right: 20px;
+        overflow-y: scroll;
+    }
+}
+
+.zendesk-comment {
+    padding: 30px;
+    border: 1px solid orange;
+    border-radius: 5px;
+    background-color: tan;
+}

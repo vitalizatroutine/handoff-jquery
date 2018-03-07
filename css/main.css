@@ -791,6 +791,49 @@ template {
     height: 160px;
     line-height: 160px; }
 
+.preview {
+  position: fixed;
+  top: 80px;
+  right: -1040px;
+  bottom: 80px;
+  width: 100%;
+  max-width: 1040px;
+  background-color: #f1f1f1;
+  z-index: 5;
+  transition: ease-in-out 0.5s; }
+  .preview--open {
+    right: -20px; }
+  .preview_toggle {
+    position: absolute;
+    top: calc(50% - 20px);
+    left: -40px;
+    width: 40px;
+    height: 40px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #f1af0f;
+    color: #2a3035;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer; }
+    .preview_toggle:before {
+      content: "\1F441"; }
+  .preview_container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 0;
+    bottom: 20px;
+    padding-right: 20px;
+    overflow-y: scroll; }
+
+.zendesk-comment {
+  padding: 30px;
+  border: 1px solid orange;
+  border-radius: 5px;
+  background-color: tan; }
+
 /*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
 /*
  * What follows is the result of much research on cross-browser styling.
