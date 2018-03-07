@@ -4,12 +4,12 @@
     "private": true,
     "dependencies": {
         "http-server": "^0.11.1",
-        "node-sass-chokidar": "0.0.3",
+        "node-sass": "^4.7.2",
         "npm-run-all": "^4.1.2"
     },
     "scripts": {
-        "build-css": "node-sass-chokidar scss/main.scss css/main.css",
-        "watch-css": "npm run build-css && node-sass-chokidar scss/main.scss css/main.css --watch --recursive",
+        "build-css": "node-sass scss/main.scss css/main.css",
+        "watch-css": "npm run build-css && node-sass scss/main.scss css/main.css --watch --recursive",
         "http-server": "http-server ./",
         "start": "npm-run-all -p http-server watch-css"
     }
