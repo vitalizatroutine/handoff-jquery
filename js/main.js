@@ -1,19 +1,32 @@
 var handoff = {
+    state: {
+        files: [],
+        links: [],
+        comments: []
+    },
+
     options: {
         selectors: {
             previewContainer: '.preview',
-            renderContainer: '#preview'
+            renderContainer: '#preview',
+            filesContainer: '#files',
+            linksContainer: '#links',
+            commentsContainer: '#comments',
+            lists: '.field--list'
         }
     },
+
     init: function(develop) {
-        var options = this.options,
+        var inst = this,
+            options = inst.options,
             selectors = options.selectors;
 
-        this.pluginsInit();
-        this.initPreview(selectors.previewContainer);
+        inst.pluginsInit();
+        inst.initPreview(selectors.previewContainer);
+        inst.initLists(selectors.lists);
 
         if (develop) {
-            this._renderSampleData(selectors.renderContainer,data);
+            inst._renderSampleData(selectors.renderContainer, data);
         }
     },
     pluginsInit: function() {
@@ -40,6 +53,7 @@ var handoff = {
             }
         }());
     },
+
     initPreview: function(selector) {
         var $preview = $(selector);
 
@@ -47,6 +61,70 @@ var handoff = {
             $preview.toggleClass('preview--open');
         });
     },
+
+    initLists: function(selector) {
+        var inst = this,
+            $lists = $(selector);
+
+        $lists
+            .on('click', '.field_submit', function() {
+                var $this = $(this),
+                    $input = $this.prev(),
+                    value = $input.val().trim(),
+                    target = $this.data('target');
+
+                if (!value || !value.length) {
+                    return;
+                }
+
+                inst._pushToState(target, $input.val(), function(array) {
+                    inst.renderList(target, array);
+                });
+            })
+            .on('keyup', '.field_input', function(event) {
+                if (event.key !== "Enter") {
+                    return;
+                }
+
+                var $this = $(this),
+                    target = $this.data('target'),
+                    value = $this.val().trim();
+
+                if (!value || !value.length) {
+                    return;
+                }
+
+                inst._pushToState(target, value, function(array) {
+                    inst.renderList(target, array);
+                });
+            })
+            .on('click', '.field_delete', function() {
+                var $this = $(this),
+                    index = $this.parent().index(),
+                    target = $this.data('target');
+
+                inst._removeFromState(target, index, function(array) {
+                    inst.renderList(target, array);
+                });
+            });
+    },
+    renderList: function(target, array) {
+        $('#' + target).html(Mustache.render(templates[target], array)).next().val('');
+    },
+
+    _pushToState: function(target, value, callback) {
+        var data = this.state[target];
+        data.push(value);
+        callback(data);
+    },
+    _removeFromState: function(target, index, callback) {
+        if (index < 0) {
+            return;
+        }
+        this.state[target].splice(index, 1);
+        callback(this.state[target]);
+    },
+
     _renderSampleData: function(selector, data) {
         var $preview = $(selector);
 

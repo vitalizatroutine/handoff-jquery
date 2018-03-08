@@ -544,10 +544,11 @@ template {
   display: none; }
 
 .page {
-  padding-bottom: 80px; }
+  height: 100%; }
 
 .form {
-  padding: 30px; }
+  padding: 30px;
+  min-height: calc(100% - 160px); }
   .form:after {
     content: "";
     display: table;
@@ -605,8 +606,6 @@ template {
     color: #ffffff; }
 
 .footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
   height: 80px;
   background: #2a3035;
@@ -793,7 +792,7 @@ template {
 
 .preview {
   position: fixed;
-  top: 80px;
+  top: 0;
   right: -1040px;
   bottom: 80px;
   width: 100%;
@@ -1088,6 +1087,9 @@ template {
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
+html, body {
+  height: 100%; }
+
 html {
   font-family: "Open Sans", sans-serif;
   font-size: 13px;

@@ -23,11 +23,16 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
+html, body {
+    height: 100%;
+}
+
 html {
     font-family: $body-font-family;
     font-size: $body-font-size;
     font-weight: $body-font-weight;
     color: $slate;
+
     * {
         box-sizing: border-box;
     }
