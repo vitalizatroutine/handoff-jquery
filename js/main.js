@@ -26,7 +26,7 @@ var handoff = {
             options = inst.options,
             selectors = options.selectors;
 
-        inst.pluginsInit();
+        inst.initPlugins();
         inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
         inst.initLists(selectors.lists);
         inst.initGenerate(selectors.generateButton);
@@ -35,7 +35,7 @@ var handoff = {
             inst._renderSampleData(selectors.renderContainer, data);
         }
     },
-    pluginsInit: function() {
+    initPlugins: function() {
         // Avoid `console` errors in browsers that lack a console.
         (function() {
             var method;
@@ -59,7 +59,6 @@ var handoff = {
             }
         }());
     },
-
     initPreview: function($preview, $toggle) {
         $toggle.on('click', function() {
             $preview.toggleClass('preview--open');
@@ -152,7 +151,7 @@ var handoff = {
     },
 
     _changeState: function(newState) {
-        var state = $.extend(this.state, newState);
+        var state = $.extend({}, this.state, newState);
         this.state = state;
         return state;
     },
