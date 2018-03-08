@@ -3,7 +3,6 @@ $form-gutter: 20px;
 .form {
     @include clearfix();
     padding: 30px;
-    min-height: calc(100% - 160px);
 
     &_title {
         margin: 0 0 $form-gutter;
@@ -22,6 +21,9 @@ $form-gutter: 20px;
 
         &--half {
             width: 100%;
+        }
+        &--full {
+            clear: both;
         }
         &--no-margin {
             margin-bottom: 0;

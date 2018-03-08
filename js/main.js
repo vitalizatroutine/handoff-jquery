@@ -1,4 +1,6 @@
 var handoff = {
+    develop: false,
+
     state: {
         files: [],
         links: [],
@@ -12,7 +14,10 @@ var handoff = {
             filesContainer: '#files',
             linksContainer: '#links',
             commentsContainer: '#comments',
-            lists: '.field--list'
+            lists: '.field--list',
+            previewButton: '#toggle_preview',
+            copyButton: '#copy',
+            generateButton: '#generate'
         }
     },
 
@@ -22,10 +27,11 @@ var handoff = {
             selectors = options.selectors;
 
         inst.pluginsInit();
-        inst.initPreview(selectors.previewContainer);
+        inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
         inst.initLists(selectors.lists);
+        inst.initGenerate(selectors.generateButton);
 
-        if (develop) {
+        if (develop || this.develop) {
             inst._renderSampleData(selectors.renderContainer, data);
         }
     },
@@ -54,10 +60,8 @@ var handoff = {
         }());
     },
 
-    initPreview: function(selector) {
-        var $preview = $(selector);
-
-        $preview.on('click', '.preview_toggle', function() {
+    initPreview: function($preview, $toggle) {
+        $toggle.on('click', function() {
             $preview.toggleClass('preview--open');
         });
     },
@@ -112,6 +116,46 @@ var handoff = {
         $('#' + target).html(Mustache.render(templates[target], array)).next().val('');
     },
 
+    initGenerate: function(selector) {
+        var inst = this;
+
+        $(selector).on('click', function() {
+            inst.serializeData();
+            inst.generatePreview(inst.options.selectors.renderContainer, inst.state);
+        });
+    },
+    serializeData: function() {
+        var data = {};
+
+        $('form').serializeArray().forEach(function(item) {
+            data[item.name] = item.value;
+        });
+
+        this._changeState({
+            client: {
+                name: data.client_name || 'Not Available',
+                url: 'https://' + (data.client_link || 'q4sandbox') + '.s3.q4web.com',
+                highAlert: data.client_highalert === 'on'
+            },
+            publish: {
+                date: data.date || 'Not Available',
+                time: data.time ? this._convertTime(data.time) : 'Not Available',
+                docsRequired: data['documents-required'] === 'on',
+                lockedFiles: data['locked-files'] === 'on',
+                emailAlert: data.email
+            }
+        });
+    },
+    generatePreview: function(selector, data) {
+        var $preview = $(selector);
+        $preview.html(Mustache.render(templates.handoff, data));
+    },
+
+    _changeState: function(newState) {
+        var state = $.extend(this.state, newState);
+        this.state = state;
+        return state;
+    },
     _pushToState: function(target, value, callback) {
         var data = this.state[target];
         data.push(value);
@@ -125,11 +169,21 @@ var handoff = {
         callback(this.state[target]);
     },
 
-    _renderSampleData: function(selector, data) {
-        var $preview = $(selector);
+    _convertTime: function(time) {
+        var pieces = time.split(':'),
+            hour = pieces[0],
+            minutes = pieces[1];
 
-        $preview.html(Mustache.render(templates.handoff, data));
+        if (hour >= 12) {
+            return parseInt(hour) === 12 ? hour + ':' + minutes + 'PM' : (hour - 12) + ':' + minutes + 'PM';
+        } else {
+            return parseInt(hour) === 0 ? 12 + ':' + minutes + 'AM' : hour + ':' + minutes + 'AM';
+        }
+    },
+
+    _renderSampleData: function(selector, data) {
+        this.generatePreview(selector, data);
     }
 };
 
-handoff.init(true);
+handoff.init();

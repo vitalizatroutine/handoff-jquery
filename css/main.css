@@ -544,11 +544,10 @@ template {
   display: none; }
 
 .page {
-  height: 100%; }
+  padding-bottom: 80px; }
 
 .form {
-  padding: 30px;
-  min-height: calc(100% - 160px); }
+  padding: 30px; }
   .form:after {
     content: "";
     display: table;
@@ -570,6 +569,8 @@ template {
       clear: both; }
     .form_section--half {
       width: 100%; }
+    .form_section--full {
+      clear: both; }
     .form_section--no-margin {
       margin-bottom: 0; }
     @media screen and (min-width: 1080px) {
@@ -606,10 +607,14 @@ template {
     color: #ffffff; }
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: 80px;
   background: #2a3035;
-  padding: 20px 30px; }
+  padding: 20px 30px;
+  z-index: 10; }
   .footer_components--right {
     float: right; }
   .footer_components--left {
@@ -801,7 +806,8 @@ template {
   z-index: 5;
   transition: ease-in-out 0.5s; }
   .preview--open {
-    right: -20px; }
+    right: -20px;
+    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.2); }
   .preview_toggle {
     position: absolute;
     top: calc(50% - 20px);
