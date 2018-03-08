@@ -82,11 +82,15 @@ var handoff = {
                 });
             })
             .on('keyup', '.field_input', function(event) {
+                if (event.key !== "Enter") {
+                    return;
+                }
+
                 var $this = $(this),
                     target = $this.data('target'),
                     value = $this.val().trim();
 
-                if (event.key !== "Enter" || !value || !value.length) {
+                if (!value || !value.length) {
                     return;
                 }
 

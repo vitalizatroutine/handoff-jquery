@@ -75,7 +75,6 @@ var templates = {
         '{{/.}}'
     ),
     links: (
-
         '{{#.}}' +
             '<article class="field_item field_item--truncate">' +
                 '<span class="field_delete" data-target="links" data-index="{{@index}}">-</span>' +
