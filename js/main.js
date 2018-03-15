@@ -15,6 +15,7 @@ var handoff = {
             linksContainer: '#links',
             commentsContainer: '#comments',
             lists: '.field--list',
+            pastebin: 'pastebin',
             previewButton: '#toggle_preview',
             copyButton: '#copy',
             generateButton: '#generate'
@@ -29,6 +30,7 @@ var handoff = {
         inst.initPlugins();
         inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
         inst.initLists(selectors.lists);
+        inst.initItemSubmit(selectors.pastebin);
         inst.initGenerate(selectors.generateButton);
 
         if (develop || this.develop) {
@@ -115,6 +117,65 @@ var handoff = {
         $('#' + target).html(Mustache.render(templates[target], array)).next().val('');
     },
 
+    initItemSubmit: function(selector) {
+        var inst = this,
+            _pastebin = document.getElementById(selector);
+
+        _pastebin.addEventListener('paste', function(event) {
+            inst.onItemSubmit(event);
+        });
+    },
+    onItemSubmit: function(event) {
+        var pastedData = event.clipboardData.getData('text/html'),
+            html = this._cleanPaste(pastedData);
+            data = this._mapDOM(html || {});
+
+        console.log('data', data);
+    },
+    _cleanPaste: function(paste) {
+        var regex = new RegExp('<input.*?>| id=".*?"| style=".*?"| onclick=".*?"| onmouseover=".*?"|<br>', 'g');
+        return paste.replace(regex, '');
+    },
+    _mapDOM: function(html) {
+        var document;
+
+        if (window.DOMParser) {
+            var parser = new DOMParser();
+            document = parser.parseFromString(html, "text/xml");
+        } else {
+            document = new ActiveXObject("Microsoft.XMLDOM");
+            document.async = false;
+            document.loadXML(html);
+        }
+
+        return this._generateItems(document);
+    },
+    _generateItems: function (document) {
+        var titleElements = document.getElementsByClassName('ToDoTitleContainer'),
+            title = titleElements.length && titleElements[0],
+            gridElements = document.getElementsByClassName('ToDoGrid'),
+            items = gridElements.length && gridElements[0].firstChild;
+
+        console.log('titleElements', titleElements);
+        console.log('gridElements', gridElements);
+        console.log('title', title.childNodes && title.childNodes.length && title.childNodes[0].textContent);
+        console.log('items', items.childNodes);
+
+        return items;
+
+        // if (nodeList && nodeList.length) {
+        //     object["content"] = [];
+        //     for (var i = 0; i < nodeList.length; i++) {
+        //         if (nodeList[i].nodeType == 3) {
+        //             object["content"].push(nodeList[i].nodeValue);
+        //         } else {
+        //             object["content"].push({});
+        //             this._generateDOMObject(nodeList[i], object["content"][object["content"].length -1]);
+        //         }
+        //     }
+        // }
+    },
+
     initGenerate: function(selector) {
         var inst = this;
 
@@ -184,5 +245,3 @@ var handoff = {
         this.generatePreview(selector, data);
     }
 };
-
-handoff.init();
