@@ -16,31 +16,28 @@ var templates = {
             '<b>Email Alert Action</b>: {{publish.emailAlert}} <br>' +
         '{{/publish}}' +
         '<br><h2>Items to be Published</h2>' +
-        'For now, paste items in as you would normally!' +
-        // '{{#items}}' +
-        //     '<h3>{{title}}</h3>' +
-        //     '<table>' +
-        //         '<thead>' +
-        //             '<tr>' +
-        //                 '{{#columns}}' +
-        //                     '<td>{{.}}</td>' +
-        //                 '{{/columns}}' +
-        //             '</tr>' +
-        //         '</thead>' +
-        //         '<tbody>' +
-        //         '{{#data}}' +
-        //             '<tr>' +
-        //                 '<td>{{date}}</td>' +
-        //                 '<td>{{title}} {{#flags}}<code>{{.}}</code>{{/flags}}</td>' +
-        //                 '<td>{{user}}</td>' +
-        //                 '<td>{{active}}</td>' +
-        //                 '<td>{{delete}}</td>' +
-        //                 '<td>{{status}}</td>' +
-        //             '</tr>' +
-        //         '{{/data}}' +
-        //         '</tbody>' +
-        //     '</table>' +
-        // '{{/items}}' +
+        '{{#items}}' +
+            '<h3>{{title}}</h3>' +
+            '<table>' +
+                '<thead>' +
+                    '<tr>' +
+                        '{{#columns}}' +
+                            '<td>{{.}}</td>' +
+                        '{{/columns}}' +
+                    '</tr>' +
+                '</thead>' +
+                '<tbody>' +
+                    '{{#rows}}' +
+                        '<tr>' +
+                            '{{#.}}' +
+                                '<td>{{.}}</td>' +
+                            '{{/.}}' +
+                        '</tr>' +
+                    '{{/rows}}' +
+                '</tbody>' +
+            '</table>' +
+            '<p></p>' +
+        '{{/items}}' +
         '{{#files.length}}<h2><br>Locked Files</h2>{{/files.length}}' +
         '{{#files}}' +
             '{{.}}<br>' +
@@ -65,18 +62,25 @@ var templates = {
     ),
     items: (
         '{{#.}}' +
-            '<table>' +
-                '<thead><tr><th colspan="{{columns.length}}">{{title}}</th></tr></thead>' +
-                '<tbody>' +
-                    '<tr>' +
+            '<table class="table">' +
+                '<thead class="table_header">' +
+                    '<tr class="table_row table_row--title">' +
+                        '<th></th>' +
+                        '<th colspan="{{columns.length}}"><div class="table_title">{{title}}</div></th>' +
+                    '</tr>' +
+                    '<tr class="table_row table_row--header">' +
+                        '<th class="table_cell"></th>' +
                         '{{#columns}}' +
-                            '<td>{{.}}</td>' +
+                            '<th class="table_cell">{{.}}</th>' +
                         '{{/columns}}' +
                     '</tr>' +
+                '</thead>' +
+                '<tbody class="table_body">' +
                     '{{#rows}}' +
-                        '<tr>' +
+                        '<tr class="table_row">' +
+                            '<td class="table_cell"><span class="table_delete">-</span></td>' +
                             '{{#.}}' +
-                                '<td>{{.}}</td>' +
+                                '<td class="table_cell"><div>{{.}}</div></td>' +
                             '{{/.}}' +
                         '</tr>' +
                     '{{/rows}}' +

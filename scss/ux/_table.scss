@@ -1,37 +1,52 @@
 .table {
     width: 100%;
+    max-width: 100%;
     margin-bottom: 20px;
     border-collapse: collapse;
     border: none;
 
     &_header {
         color: $white;
+
+        th {
+            font-weight: 300;
+        }
+    }
+
+    &_title {
+        margin-left: -40px;
     }
 
     &_body {
-
+        tr {
+            border-bottom: 1px solid $light-grey;
+        }
     }
 
     &_row {
-        border-bottom: 1px solid $light-grey;
-
         &--title {
             background-color: $steel;
-            border-bottom: none;
 
-            td {
+            th {
                 height: 25px;
                 padding: 0 10px;
+                text-align: center;
                 text-transform: uppercase;
+
+                &:first-child {
+                    display: block;
+                    float: left;
+                    width: 0;
+                }
             }
         }
 
         &--header {
             background-color: $sky;
-            border-bottom: none;
 
-            td {
+            th {
                 height: 50px;
+                text-align: left;
             }
         }
     }
@@ -39,33 +54,33 @@
     &_cell {
         height: 40px;
         padding: 0 10px;
-        //text-align: center;
         vertical-align: middle;
 
-        &:first-child {
-            width: 40px;
-            background-color: transparent;
+        &:first-child, &:first-child > div {
+            width: 20px;
             text-align: center;
         }
 
-        &:nth-child(2) {
-            background-color: transparent;
-            text-align: left;
+        &:nth-child(2) > div {
+            max-width: 380px;
         }
 
-        &:nth-last-child(4) {
-            width: 150px;
+        &:nth-last-child(4), &:nth-last-child(4) > div {
+            width: 130px;
         }
 
-        &:nth-last-child(2), &:nth-last-child(3) {
-            width: 30px;
+        &:nth-last-child(2), &:nth-last-child(2) > div,
+        &:nth-last-child(3), &:nth-last-child(3) > div {
+            width: 10px;
         }
 
-        &:last-child {
-            width: 120px;
+        &:last-child, &:last-child > div {
+            width: 100px;
         }
 
-        & > * {
+        & > div {
+            max-width: 400px;
+            line-height: 40px;
             @include truncate();
         }
     }

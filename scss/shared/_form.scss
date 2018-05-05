@@ -24,6 +24,7 @@ $form-gutter: 20px;
         }
         &--full {
             float: none;
+            clear: both;
         }
         &--no-margin {
             margin-bottom: 0;

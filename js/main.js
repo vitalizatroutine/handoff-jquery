@@ -249,12 +249,12 @@ var handoff = {
     _changeState: function(newState, callback) {
         var state = $.extend({}, this.state, newState);
         this.state = state;
-        callback(this.state);
+        callback && callback(this.state);
     },
     _pushToState: function(target, value, callback) {
         var data = this.state[target];
         data.push(value);
-        callback(data);
+        callback && callback(data);
     },
     _removeFromState: function(target, index, callback) {
         if (index < 0) {
