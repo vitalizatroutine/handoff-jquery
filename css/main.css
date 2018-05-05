@@ -570,19 +570,16 @@ template {
     .form_section--half {
       width: 100%; }
     .form_section--full {
-      clear: both; }
+      float: none; }
     .form_section--no-margin {
       margin-bottom: 0; }
     @media screen and (min-width: 1080px) {
       .form_section--half {
         width: calc(50% - 10px);
-        max-width: 500px; }
-        .form_section--half:nth-child(odd) {
-          margin-right: 10px; }
-        .form_section--half:nth-child(even) {
-          margin-left: 10px; }
-        .form_section--half:nth-child(2n + 1) {
-          clear: left; } }
+        max-width: 500px;
+        margin-right: 10px; }
+        .form_section--half + .form_section--half {
+          margin-left: 10px; } }
   .form_item {
     float: left;
     margin-right: 20px;

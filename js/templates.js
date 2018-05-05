@@ -63,6 +63,27 @@ var templates = {
             '{{/comments}}' +
         '</ol>{{/comments.length}}'
     ),
+    items: (
+        '{{#.}}' +
+            '<table>' +
+                '<thead><tr><th colspan="{{columns.length}}">{{title}}</th></tr></thead>' +
+                '<tbody>' +
+                    '<tr>' +
+                        '{{#columns}}' +
+                            '<td>{{.}}</td>' +
+                        '{{/columns}}' +
+                    '</tr>' +
+                    '{{#rows}}' +
+                        '<tr>' +
+                            '{{#.}}' +
+                                '<td>{{.}}</td>' +
+                            '{{/.}}' +
+                        '</tr>' +
+                    '{{/rows}}' +
+                '</tbody>' +
+            '</table>' +
+        '{{/.}}'
+    ),
     files: (
         '{{#.}}' +
             '<article class="field_item field_item--truncate">' +

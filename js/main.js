@@ -126,11 +126,17 @@ var handoff = {
         });
     },
     onItemSubmit: function(event) {
-        var pastedData = event.clipboardData.getData('text/html'),
-            html = this._cleanPaste(pastedData);
-            data = this._mapDOM(html || {});
+        var inst = this,
+            pastedData = event.clipboardData.getData('text/html'),
+            html = inst._cleanPaste(pastedData);
+            data = inst._mapDOM(html || {});
 
-        console.log('data', data);
+        inst._changeState({items: data}, function(state) {
+            inst.renderItems(state.items);
+        });
+    },
+    renderItems: function(array) {
+        $('#items').html(Mustache.render(templates['items'], array));
     },
     _cleanPaste: function(paste) {
         var regex = new RegExp('<input.*?>| id=".*?"| style=".*?"| onclick=".*?"| onmouseover=".*?"|<br>', 'g');
@@ -150,30 +156,59 @@ var handoff = {
 
         return this._generateItems(document);
     },
-    _generateItems: function (document) {
+    _generateItems: function(document) {
         var titleElements = document.getElementsByClassName('ToDoTitleContainer'),
-            title = titleElements.length && titleElements[0],
             gridElements = document.getElementsByClassName('ToDoGrid'),
-            items = gridElements.length && gridElements[0].firstChild;
+            data = [];
 
-        console.log('titleElements', titleElements);
-        console.log('gridElements', gridElements);
-        console.log('title', title.childNodes && title.childNodes.length && title.childNodes[0].textContent);
-        console.log('items', items.childNodes);
+        for (i = 0; i < titleElements.length; i++) {
+            data.push({
+                title: this._getText(titleElements[i]),
+                columns: this._getColumns(gridElements[i]) || [],
+                rows: this._getRows(gridElements[i]) || []
+            });
+        }
 
-        return items;
+        return data;
+    },
+    _getText: function(element) {
+        return element && element.firstChild && element.firstChild.textContent || 'unavailable';
+    },
+    _getColumns: function(element) {
+        var body = element && element.firstChild,
+            header = body && body.firstChild,
+            cells = header && header.childNodes,
+            columns = [];
 
-        // if (nodeList && nodeList.length) {
-        //     object["content"] = [];
-        //     for (var i = 0; i < nodeList.length; i++) {
-        //         if (nodeList[i].nodeType == 3) {
-        //             object["content"].push(nodeList[i].nodeValue);
-        //         } else {
-        //             object["content"].push({});
-        //             this._generateDOMObject(nodeList[i], object["content"][object["content"].length -1]);
-        //         }
-        //     }
-        // }
+        if (cells && cells.length) {
+            for (c = 1; c < cells.length - 1; c++) {
+                var cell = cells[c];
+                columns.push(cell.textContent);
+            }
+        }
+
+        return columns;
+    },
+    _getRows: function(element) {
+        var body = element && element.firstChild,
+            items = body && body.childNodes,
+            rows = [];
+
+        if (items && items.length) {
+            for (r = 1; r < items.length; r++) {
+                var cells = items[r].childNodes;
+                if (cells && cells.length) {
+                    var rowData = [];
+                    for (c = 1; c < cells.length - 1; c++) {
+                        var cell = cells[c];
+                        rowData.push(cell.textContent);
+                    }
+                    rows.push(rowData);
+                }
+            }
+        }
+
+        return rows;
     },
 
     initGenerate: function(selector) {
@@ -211,10 +246,10 @@ var handoff = {
         $preview.html(Mustache.render(templates.handoff, data));
     },
 
-    _changeState: function(newState) {
+    _changeState: function(newState, callback) {
         var state = $.extend({}, this.state, newState);
         this.state = state;
-        return state;
+        callback(this.state);
     },
     _pushToState: function(target, value, callback) {
         var data = this.state[target];

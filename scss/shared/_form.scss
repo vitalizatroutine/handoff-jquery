@@ -23,7 +23,7 @@ $form-gutter: 20px;
             width: 100%;
         }
         &--full {
-            clear: both;
+            float: none;
         }
         &--no-margin {
             margin-bottom: 0;
@@ -33,15 +33,10 @@ $form-gutter: 20px;
             &--half {
                 width: calc(50% - #{$form-gutter / 2});
                 max-width: 500px;
+                margin-right: $form-gutter / 2;
 
-                &:nth-child(odd) {
-                    margin-right: $form-gutter / 2;
-                }
-                &:nth-child(even) {
+                & + & {
                     margin-left: $form-gutter / 2;
-                }
-                &:nth-child(2n + 1) {
-                    clear: left;
                 }
             }
         }
