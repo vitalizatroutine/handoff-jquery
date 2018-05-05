@@ -1,0 +1,85 @@
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border: none;
+
+    &_header {
+        color: $white;
+    }
+
+    &_body {
+
+    }
+
+    &_row {
+        border-bottom: 1px solid $light-grey;
+
+        &--title {
+            background-color: $steel;
+            border-bottom: none;
+
+            td {
+                height: 25px;
+                padding: 0 10px;
+                text-transform: uppercase;
+            }
+        }
+
+        &--header {
+            background-color: $sky;
+            border-bottom: none;
+
+            td {
+                height: 50px;
+            }
+        }
+    }
+
+    &_cell {
+        height: 40px;
+        padding: 0 10px;
+        //text-align: center;
+        vertical-align: middle;
+
+        &:first-child {
+            width: 40px;
+            background-color: transparent;
+            text-align: center;
+        }
+
+        &:nth-child(2) {
+            background-color: transparent;
+            text-align: left;
+        }
+
+        &:nth-last-child(4) {
+            width: 150px;
+        }
+
+        &:nth-last-child(2), &:nth-last-child(3) {
+            width: 30px;
+        }
+
+        &:last-child {
+            width: 120px;
+        }
+
+        & > * {
+            @include truncate();
+        }
+    }
+
+    &_delete {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: $cherry;
+        color: $white;
+        text-align: center;
+        line-height: 16px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+}

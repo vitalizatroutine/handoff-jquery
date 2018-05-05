@@ -617,6 +617,60 @@ template {
   .footer_components--left {
     float: left; }
 
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border: none; }
+  .table_header {
+    color: #ffffff; }
+  .table_row {
+    border-bottom: 1px solid #eeeeee; }
+    .table_row--title {
+      background-color: #1f6bb0;
+      border-bottom: none; }
+      .table_row--title td {
+        height: 25px;
+        padding: 0 10px;
+        text-transform: uppercase; }
+    .table_row--header {
+      background-color: #3498db;
+      border-bottom: none; }
+      .table_row--header td {
+        height: 50px; }
+  .table_cell {
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle; }
+    .table_cell:first-child {
+      width: 40px;
+      background-color: transparent;
+      text-align: center; }
+    .table_cell:nth-child(2) {
+      background-color: transparent;
+      text-align: left; }
+    .table_cell:nth-last-child(4) {
+      width: 150px; }
+    .table_cell:nth-last-child(2), .table_cell:nth-last-child(3) {
+      width: 30px; }
+    .table_cell:last-child {
+      width: 120px; }
+    .table_cell > * {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+  .table_delete {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #e74c3c;
+    color: #ffffff;
+    text-align: center;
+    line-height: 16px;
+    vertical-align: middle;
+    cursor: pointer; }
+
 .button {
   display: inline-block;
   padding: 0 20px;
