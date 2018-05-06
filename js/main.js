@@ -155,13 +155,17 @@ var handoff = {
 
         if (!data.length) {
             input.classList.add('field_input--error');
-            setTimeout(function() {input.value = null;}, 0);
             return;
         }
 
         inst._changeState({items: data}, function(state) {
             inst.renderItems(state.items);
         });
+
+        setTimeout(function() {
+            input.value = null;
+            input.blur();
+        }, 0);
     },
     renderItems: function(array) {
         $('#items').html(Mustache.render(templates['items'], array));
