@@ -1045,7 +1045,7 @@ template {
       font-family: "Open Sans", sans-serif;
       font-weight: 300;
       color: transparent;
-      text-indent: -999999px;
+      white-space: nowrap;
       overflow: hidden;
       vertical-align: middle;
       resize: none; }
@@ -1053,11 +1053,18 @@ template {
         font-family: "Open Sans", sans-serif;
         font-weight: 300;
         color: #ffffff;
-        text-indent: 0; }
+        text-indent: -95px; }
       .field--submit .field_input:focus {
         outline: none;
         background-color: #0da084;
         box-shadow: inset #3a925f 0 0 10px; }
+        .field--submit .field_input:focus::placeholder {
+          text-indent: 0; }
+      .field--submit .field_input--error, .field--submit .field_input--error:focus {
+        background-color: #ec6a4c;
+        box-shadow: inset #e74c3c 0 0 10px; }
+        .field--submit .field_input--error::placeholder, .field--submit .field_input--error:focus::placeholder {
+          text-indent: -245px; }
     .field--submit .field_submit {
       height: 160px;
       line-height: 160px; }

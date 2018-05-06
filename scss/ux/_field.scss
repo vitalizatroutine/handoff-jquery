@@ -269,7 +269,7 @@ $submit-width: 40px;
                 font-family: $body-font-family;
                 font-weight: $body-font-weight;
                 color: transparent;
-                text-indent: -999999px;
+                white-space: nowrap;
                 overflow: hidden;
                 vertical-align: middle;
                 resize: none;
@@ -278,13 +278,26 @@ $submit-width: 40px;
                     font-family: $body-font-family;
                     font-weight: $body-font-weight;
                     color: $white;
-                    text-indent: 0;
+                    text-indent: -95px;
                 }
 
                 &:focus {
                     outline: none;
                     background-color: $dark-teal;
                     box-shadow: inset $avocado 0 0 10px;
+
+                    &::placeholder {
+                        text-indent: 0;
+                    }
+                }
+
+                &--error, &--error:focus {
+                    background-color: $spice;
+                    box-shadow: inset $cherry 0 0 10px;
+
+                    &::placeholder {
+                        text-indent: -245px;
+                    }
                 }
             }
             &_submit {

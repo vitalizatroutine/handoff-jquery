@@ -2,6 +2,7 @@ var handoff = {
     develop: false,
 
     state: {
+        items: [],
         files: [],
         links: [],
         comments: []
@@ -15,6 +16,7 @@ var handoff = {
             linksContainer: '#links',
             commentsContainer: '#comments',
             lists: '.field--list',
+            items: '#items',
             pastebin: 'pastebin',
             previewButton: '#toggle_preview',
             copyButton: '#copy',
@@ -30,6 +32,7 @@ var handoff = {
         inst.initPlugins();
         inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
         inst.initLists(selectors.lists);
+        inst.initItems(selectors.items);
         inst.initItemSubmit(selectors.pastebin);
         inst.initGenerate(selectors.generateButton);
 
@@ -117,19 +120,44 @@ var handoff = {
         $('#' + target).html(Mustache.render(templates[target], array)).next().val('');
     },
 
+    initItems: function(selector) {
+        var inst = this,
+            $items = $(selector);
+
+        $items.on('click', '.table_delete', function() {
+            var state = inst.state,
+                $this = $(this),
+                itemIndex = $this.closest('table').index(),
+                rowIndex = $this.closest('tr').index();
+
+            inst._removeFromState({
+                target: 'items',
+                subTarget: state.items[itemIndex].rows
+            }, rowIndex, function(array) {
+                inst.renderItems(array);
+            });
+        });
+    },
     initItemSubmit: function(selector) {
         var inst = this,
             _pastebin = document.getElementById(selector);
 
         _pastebin.addEventListener('paste', function(event) {
-            inst.onItemSubmit(event);
+            _pastebin.classList.remove('field_input--error');
+            inst.onItemSubmit(_pastebin, event);
         });
     },
-    onItemSubmit: function(event) {
+    onItemSubmit: function(input, event) {
         var inst = this,
             pastedData = event.clipboardData.getData('text/html'),
             html = inst._cleanPaste(pastedData);
             data = inst._mapDOM(html || {});
+
+        if (!data.length) {
+            input.classList.add('field_input--error');
+            setTimeout(function() {input.value = null;}, 0);
+            return;
+        }
 
         inst._changeState({items: data}, function(state) {
             inst.renderItems(state.items);
@@ -260,8 +288,14 @@ var handoff = {
         if (index < 0) {
             return;
         }
-        this.state[target].splice(index, 1);
-        callback(this.state[target]);
+
+        if (typeof target === 'string') {
+            this.state[target].splice(index, 1);
+            callback(this.state[target]);
+        } else {
+            target.subTarget.splice(index, 1);
+            callback(this.state[target.target]);
+        }
     },
 
     _convertTime: function(time) {
