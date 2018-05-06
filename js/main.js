@@ -302,7 +302,7 @@ var handoff = {
             data.publish && data.publish.docsRequired ? ' [docs required]' : ''
         ].join('');
 
-        template.trim().length ? $title.text(('Hand-off Generator | ' + template) || '') : $title.text('Hand-off Generator');
+        template.trim().length ? $title.text((template) || '') : '';
     },
     _convertDate: function(data) {
         var dateString = '';

@@ -592,6 +592,19 @@ template {
     .form_item--isolate {
       margin-left: 60px; }
 
+.tabs {
+  height: 80px;
+  background-color: #297ac5; }
+  .tabs_item {
+    display: inline-block;
+    padding: 0 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 80px;
+    cursor: pointer; }
+    .tabs_item--active {
+      background-color: #0f5ca3; }
+
 .header {
   height: 80px;
   padding: 0 30px;
@@ -617,6 +630,9 @@ template {
     float: right; }
   .footer_components--left {
     float: left; }
+  .footer_title {
+    line-height: 40px;
+    color: #ffffff; }
 
 .table {
   width: 100%;

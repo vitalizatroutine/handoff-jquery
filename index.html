@@ -19,9 +19,13 @@
         <![endif]-->
 
         <main class="page">
-            <header class="header">
-                <h1 class="header_title" id="handoff_title">Hand-off Generator</h1>
+            <header class="tabs">
+                <div class="tabs_item tabs_item--active" data-location="handoff-generator">Handoff Generator</div>
+                <div class="tabs_item" data-location="time-master">Time Master</div>
             </header>
+            <!--<header class="header">-->
+                <!--<h1 class="header_title" id="handoff_title"></h1>-->
+            <!--</header>-->
             <form class="form" id="handoff_form">
                 <section class="form_section form_section--half">
                     <h2 class="form_title">Client Information</h2>
@@ -152,6 +156,9 @@
                 </div>
             </section>
             <footer class="footer">
+                <section class="footer_components footer_components--left">
+                    <span class="footer_title" id="handoff_title"></span>
+                </section>
                 <section class="footer_components footer_components--right">
                     <span class="button button--dark-slate" id="toggle_preview">Toggle Preview</span>
                     <span class="button button--citrus" id="copy">Copy Handoff</span>
