@@ -295,7 +295,6 @@ var handoff = {
             clientName = (data.client && data.client.name && data.client.name !== 'Not Available') ? data.client.name : '';
 
         var template = [
-            // 'Hand-off Generator - ',
             data.client && data.client.highAlert ? '[!]' : '',
             date,
             (date && clientName) ? ' - ' : ' ',
@@ -303,7 +302,7 @@ var handoff = {
             data.publish && data.publish.docsRequired ? ' [docs required]' : ''
         ].join('');
 
-        template.trim().length && $title.text(template || 'Hand-off Generator');
+        template.trim().length ? $title.text(('Hand-off Generator | ' + template) || '') : $title.text('Hand-off Generator');
     },
     _convertDate: function(data) {
         var dateString = '';
