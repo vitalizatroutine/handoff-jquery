@@ -20,7 +20,8 @@ var handoff = {
             pastebin: 'pastebin',
             previewButton: '#toggle_preview',
             copyButton: '#copy',
-            generateButton: '#generate'
+            generateButton: '#generate',
+            handoffTitle: '#handoff_title'
         }
     },
 
@@ -153,8 +154,14 @@ var handoff = {
             html = inst._cleanPaste(pastedData);
             data = inst._mapDOM(html || {});
 
-        if (!data.length) {
+        if (!data || !data.length) {
             input.classList.add('field_input--error');
+
+            setTimeout(function() {
+                input.value = null;
+                input.blur();
+            }, 0);
+
             return;
         }
 
@@ -193,6 +200,10 @@ var handoff = {
             gridElements = document.getElementsByClassName('ToDoGrid'),
             data = [];
 
+        if (!titleElements || !titleElements.length || !gridElements || !gridElements.length) {
+            return;
+        }
+
         for (i = 0; i < titleElements.length; i++) {
             data.push({
                 title: this._getText(titleElements[i]),
@@ -204,7 +215,7 @@ var handoff = {
         return data;
     },
     _getText: function(element) {
-        return element && element.firstChild && element.firstChild.textContent || 'unavailable';
+        return element && element.firstChild && element.firstChild.textContent || null;
     },
     _getColumns: function(element) {
         var body = element && element.firstChild,
@@ -249,6 +260,7 @@ var handoff = {
         $(selector).on('click', function() {
             inst.serializeData();
             inst.generatePreview(inst.options.selectors.renderContainer, inst.state);
+            inst.generateTitle(inst.options.selectors.handoffTitle, inst.state);
         });
     },
     serializeData: function() {
@@ -267,7 +279,7 @@ var handoff = {
             publish: {
                 date: data.date || 'Not Available',
                 time: data.time ? this._convertTime(data.time) : 'Not Available',
-                docsRequired: data['documents-required'] === 'on',
+                docsRequired: data['document-required'] === 'on',
                 lockedFiles: data['locked-files'] === 'on',
                 emailAlert: data.email
             }
@@ -276,6 +288,40 @@ var handoff = {
     generatePreview: function(selector, data) {
         var $preview = $(selector);
         $preview.html(Mustache.render(templates.handoff, data));
+    },
+    generateTitle: function(selector, data) {
+        var $title = $(selector),
+            date = this._convertDate(data.publish),
+            clientName = (data.client && data.client.name && data.client.name !== 'Not Available') ? data.client.name : '';
+
+        var template = [
+            // 'Hand-off Generator - ',
+            data.client && data.client.highAlert ? '[!]' : '',
+            date,
+            (date && clientName) ? ' - ' : ' ',
+            clientName,
+            data.publish && data.publish.docsRequired ? ' [docs required]' : ''
+        ].join('');
+
+        template.trim().length && $title.text(template || 'Hand-off Generator');
+    },
+    _convertDate: function(data) {
+        var dateString = '';
+
+        if (!data) {
+            return dateString;
+        }
+
+        var date = (data.date && data.date !== 'Not Available') ? data.date : false,
+            time = (data.time && data.time !== 'Not Available') ? data.time : false;
+
+        (date || time) ? dateString += '[' : null;
+        (date) ? dateString += date : '';
+        (date && time) ? dateString += ' / ' : null;
+        (time) ? dateString += time : '';
+        (date || time) ? dateString += '] ' : null;
+
+        return dateString;
     },
 
     _changeState: function(newState, callback) {

@@ -62,7 +62,7 @@ var templates = {
     ),
     items: (
         '{{#.}}' +
-            '{{#rows.length}}' +
+            '{{#rows.length}}{{#title}}' +
                 '<table class="table">' +
                     '<thead class="table_header">' +
                         '<tr class="table_row table_row--title">' +
@@ -89,7 +89,7 @@ var templates = {
                         '{{/rows}}' +
                     '</tbody>' +
                 '</table>' +
-            '{{/rows.length}}' +
+            '{{/title}}{{/rows.length}}' +
         '{{/.}}'
     ),
     files: (
