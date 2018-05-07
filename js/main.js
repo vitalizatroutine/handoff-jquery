@@ -42,6 +42,10 @@ var handoff = {
         if (develop || this.develop) {
             inst._renderSampleData(selectors.renderContainer, data);
         }
+
+        if (window.location.hash) {
+            inst.updateView(window.location.hash);
+        }
     },
     initPlugins: function() {
         // Avoid `console` errors in browsers that lack a console.
@@ -67,19 +71,18 @@ var handoff = {
             }
         }());
     },
+
     initTabs: function($tabs) {
-        itemClass = '.tabs_item';
-        $tabs.on('click', itemClass, function() {
+        var inst = this;
+
+        $tabs.on('click', '.tabs_item', function() {
             var $this = $(this),
-                $pages = $('.page_item');
+                location = $this.data('location');
 
-            $(itemClass).removeClass('tabs_item--active');
-            $this.addClass('tabs_item--active');
-
-            $pages.removeClass('page_item--active');
-            $('#' + $this.data('location')).addClass('page_item--active');
+            inst.updateView(location);
         });
     },
+
     initPreview: function($preview, $toggle) {
         $toggle.on('click', function() {
             $preview.toggleClass('preview--open');
@@ -336,6 +339,23 @@ var handoff = {
         (date || time) ? dateString += '] ' : null;
 
         return dateString;
+    },
+
+    updateView: function(view) {
+        var $tabs = $('.tabs_item'),
+            $pages = $('.page_item');
+
+        if (view.indexOf('#') >= 0) {
+            view = view.slice(1);
+        }
+
+        $tabs.removeClass('tabs_item--active');
+        $('.tabs_item[data-location="' + view + '"]').addClass('tabs_item--active');
+
+        $pages.removeClass('page_item--active');
+        $('#' + view).addClass('page_item--active');
+
+        window.location.hash = view;
     },
 
     _changeState: function(newState, callback) {
