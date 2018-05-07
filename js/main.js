@@ -356,6 +356,7 @@ var handoff = {
         $('#' + view).addClass('page_item--active');
 
         window.location.hash = view;
+        $(window).scrollTop(0);
     },
 
     _changeState: function(newState, callback) {
