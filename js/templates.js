@@ -16,7 +16,7 @@ var templates = {
             '<b>Email Alert Action</b>: {{publish.emailAlert}} <br>' +
         '{{/publish}}' +
         '<br><h2>Items to be Published</h2>' +
-        '{{#items}}{{#rows.length}}' +
+        '{{#items}}{{#rows.length}}{{#title}}' +
             '<h3>{{title}}</h3>' +
             '<table>' +
                 '<thead>' +
@@ -37,7 +37,7 @@ var templates = {
                 '</tbody>' +
             '</table>' +
             '<p></p>' +
-        '{{/rows.length}}{{/items}}' +
+        '{{/title}}{{/rows.length}}{{/items}}' +
         '{{#files.length}}<h2><br>Locked Files</h2>{{/files.length}}' +
         '{{#files}}' +
             '{{.}}<br>' +

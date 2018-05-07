@@ -10,6 +10,7 @@ var handoff = {
 
     options: {
         selectors: {
+            tabs: '.tabs',
             previewContainer: '.preview',
             renderContainer: '#preview',
             filesContainer: '#files',
@@ -32,6 +33,7 @@ var handoff = {
 
         inst.initPlugins();
         inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
+        inst.initTabs($(selectors.tabs));
         inst.initLists(selectors.lists);
         inst.initItems(selectors.items);
         inst.initItemSubmit(selectors.pastebin);
@@ -64,6 +66,19 @@ var handoff = {
                 }
             }
         }());
+    },
+    initTabs: function($tabs) {
+        itemClass = '.tabs_item';
+        $tabs.on('click', itemClass, function() {
+            var $this = $(this),
+                $pages = $('.page_item');
+
+            $(itemClass).removeClass('tabs_item--active');
+            $this.addClass('tabs_item--active');
+
+            $pages.removeClass('page_item--active');
+            $('#' + $this.data('location')).addClass('page_item--active');
+        });
     },
     initPreview: function($preview, $toggle) {
         $toggle.on('click', function() {

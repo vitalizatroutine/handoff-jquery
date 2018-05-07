@@ -20,122 +20,137 @@
 
         <main class="page">
             <header class="tabs">
-                <div class="tabs_item tabs_item--active" data-location="handoff-generator">Handoff Generator</div>
-                <div class="tabs_item" data-location="time-master">Time Master</div>
+                <div class="tabs_item tabs_item--active" data-location="handoff_generator">Handoff Generator</div>
+                <div class="tabs_item" data-location="time_master">Time Master</div>
             </header>
             <!--<header class="header">-->
                 <!--<h1 class="header_title" id="handoff_title"></h1>-->
             <!--</header>-->
-            <form class="form" id="handoff_form">
-                <section class="form_section form_section--half">
-                    <h2 class="form_title">Client Information</h2>
-                    <div class="form_item">
-                        <div class="field field--text">
-                            <label class="field_label" for="client_name">Client Name</label>
-                            <input class="field_input" type="text" id="client_name" name="client_name" placeholder="Goldcorp" />
+            <section class="page_item page_item--active" id="handoff_generator">
+                <form class="form" id="handoff_form">
+                    <section class="form_section form_section--half">
+                        <h2 class="form_title">Client Information</h2>
+                        <div class="form_item">
+                            <div class="field field--text">
+                                <label class="field_label" for="client_name">Client Name</label>
+                                <input class="field_input" type="text" id="client_name" name="client_name" placeholder="Goldcorp" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form_item">
-                        <div class="field field--text">
-                            <label class="field_label" for="client_link">CMS URL</label>
-                            <span class="field_crumb">https://</span>
-                            <input class="field_input field_input--short" type="text" id="client_link" name="client_link" placeholder="goldcorp2017ir" />
-                            <span class="field_crumb">.s3.q4web.com</span>
+                        <div class="form_item">
+                            <div class="field field--text">
+                                <label class="field_label" for="client_link">CMS URL</label>
+                                <span class="field_crumb">https://</span>
+                                <input class="field_input field_input--short" type="text" id="client_link" name="client_link" placeholder="goldcorp2017ir" />
+                                <span class="field_crumb">.s3.q4web.com</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form_item form_item--break">
-                        <div class="field field--checkbox">
-                            <input class="field_input field_input--teal" type="checkbox" id="client_highalert" name="client_highalert" />
-                            <label class="field_label" for="client_highalert">High Alert</label>
+                        <div class="form_item form_item--break">
+                            <div class="field field--checkbox">
+                                <input class="field_input field_input--teal" type="checkbox" id="client_highalert" name="client_highalert" />
+                                <label class="field_label" for="client_highalert">High Alert</label>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section class="form_section form_section--half">
-                    <h2 class="form_title">Publishing Information</h2>
-                    <div class="form_item">
-                        <div class="field field--text">
-                            <label class="field_label" for="date">Publishing Date</label>
-                            <input class="field_input" type="date" id="date" name="date" />
+                    </section>
+                    <section class="form_section form_section--half">
+                        <h2 class="form_title">Publishing Information</h2>
+                        <div class="form_item">
+                            <div class="field field--text">
+                                <label class="field_label" for="date">Publishing Date</label>
+                                <input class="field_input" type="date" id="date" name="date" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form_item">
-                        <div class="field field--text">
-                            <label class="field_label" for="time">Publishing Time</label>
-                            <input class="field_input field_input--short" type="time" id="time" name="time" />
+                        <div class="form_item">
+                            <div class="field field--text">
+                                <label class="field_label" for="time">Publishing Time</label>
+                                <input class="field_input field_input--short" type="time" id="time" name="time" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form_item">
-                        <div class="field field--radio">
-                            <label class="field_label">Email Alert Action</label>
-                            <fieldset>
-                                <input class="field_input" type="radio" id="email_auto" name="email" value="automatic" checked="true" />
-                                <label class="field_label" for="email_auto">Automatic</label>
-                                <input class="field_input" type="radio" id="email_manual" name="email" value="manual" />
-                                <label class="field_label" for="email_manual">Manual</label>
-                            </fieldset>
+                        <div class="form_item">
+                            <div class="field field--radio">
+                                <label class="field_label">Email Alert Action</label>
+                                <fieldset>
+                                    <input class="field_input" type="radio" id="email_auto" name="email" value="automatic" checked="true" />
+                                    <label class="field_label" for="email_auto">Automatic</label>
+                                    <input class="field_input" type="radio" id="email_manual" name="email" value="manual" />
+                                    <label class="field_label" for="email_manual">Manual</label>
+                                </fieldset>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form_item form_item--break">
-                        <div class="field field--checkbox">
-                            <input class="field_input field_input--teal" type="checkbox" id="document-required" name="document-required" />
-                            <label class="field_label" for="document-required">Documents Required</label>
+                        <div class="form_item form_item--break">
+                            <div class="field field--checkbox">
+                                <input class="field_input field_input--teal" type="checkbox" id="document-required" name="document-required" />
+                                <label class="field_label" for="document-required">Documents Required</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form_item">
-                        <div class="field field--checkbox">
-                            <input class="field_input field_input--teal" type="checkbox" id="locked-files" name="locked-files" />
-                            <label class="field_label" for="locked-files">Locked Files</label>
+                        <div class="form_item">
+                            <div class="field field--checkbox">
+                                <input class="field_input field_input--teal" type="checkbox" id="locked-files" name="locked-files" />
+                                <label class="field_label" for="locked-files">Locked Files</label>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section class="form_section form_section--full">
-                    <h2 class="form_title">Items to Publish</h2>
-                    <div class="form_item form_item--full">
-                        <div id="items"></div>
-                        <div class="field field--submit">
-                            <textarea class="field_input" id="pastebin"
-                                      placeholder="paste&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click and paste&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try again"></textarea>
-                                <span class="visuallyhidden" id="temp_dom"></span>
-                            <span class="field_help">
-                                <div class="tooltip tooltip--right">Copy and paste items from the CMS.</div>
-                            </span>
+                    </section>
+                    <section class="form_section form_section--full">
+                        <h2 class="form_title">Items to Publish</h2>
+                        <div class="form_item form_item--full">
+                            <div id="items"></div>
+                            <div class="field field--submit">
+                                <textarea class="field_input" id="pastebin"
+                                          placeholder="paste&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;click and paste&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try again"></textarea>
+                                    <span class="visuallyhidden" id="temp_dom"></span>
+                                <span class="field_help">
+                                    <div class="tooltip tooltip--right">Copy and paste items from the CMS.</div>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section class="form_section form_section--half">
-                    <h2 class="form_title">Locked Files</h2>
-                    <div class="form_item form_item--full">
-                        <div class="field field--text field--list">
-                            <div class="field_items" id="files"></div>
-                            <input class="field_input" type="text" id="files_new" name="locked-files" data-target="files"
-                                placeholder="/files/doc_presentations/2018/03/presentation.pdf"/>
-                            <span class="field_submit" data-target="files">+</span>
+                    </section>
+                    <section class="form_section form_section--half">
+                        <h2 class="form_title">Locked Files</h2>
+                        <div class="form_item form_item--full">
+                            <div class="field field--text field--list">
+                                <div class="field_items" id="files"></div>
+                                <input class="field_input" type="text" id="files_new" name="locked-files" data-target="files"
+                                    placeholder="/files/doc_presentations/2018/03/presentation.pdf"/>
+                                <span class="field_submit" data-target="files">+</span>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section class="form_section form_section--half">
-                    <h2 class="form_title">Live Links</h2>
-                    <div class="form_item form_item--full">
-                        <div class="field field--text field--list">
-                            <div class="field_items" id="links"></div>
-                            <input class="field_input" type="text" id="links_new" name="live-links" data-target="links"
-                                placeholder="https://www.barrick.com/investors/news/default.aspx"/>
-                            <span class="field_submit" data-target="links">+</span>
+                    </section>
+                    <section class="form_section form_section--half">
+                        <h2 class="form_title">Live Links</h2>
+                        <div class="form_item form_item--full">
+                            <div class="field field--text field--list">
+                                <div class="field_items" id="links"></div>
+                                <input class="field_input" type="text" id="links_new" name="live-links" data-target="links"
+                                    placeholder="https://www.barrick.com/investors/news/default.aspx"/>
+                                <span class="field_submit" data-target="links">+</span>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <section class="form_section form_section--full">
-                    <h2 class="form_title">Comments</h2>
-                    <div class="form_item form_item--full">
-                        <div class="field field--textarea field--list">
-                            <div class="field_items" id="comments"></div>
-                            <textarea class="field_input" type="text" id="comments_new" name="comments" data-target="comments"
-                                      placeholder="The manual email alert is titled '2018 PDAC Conference', located under the 2018 tab."></textarea>
-                            <span class="field_submit" data-target="comments">+</span>
+                    </section>
+                    <section class="form_section form_section--full">
+                        <h2 class="form_title">Comments</h2>
+                        <div class="form_item form_item--full">
+                            <div class="field field--textarea field--list">
+                                <div class="field_items" id="comments"></div>
+                                <textarea class="field_input" type="text" id="comments_new" name="comments" data-target="comments"
+                                          placeholder="The manual email alert is titled '2018 PDAC Conference', located under the 2018 tab."></textarea>
+                                <span class="field_submit" data-target="comments">+</span>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </form>
+                    </section>
+                </form>
+                <footer class="footer">
+                    <section class="footer_components footer_components--left">
+                        <span class="footer_title" id="handoff_title"></span>
+                    </section>
+                    <section class="footer_components footer_components--right">
+                        <span class="button button--dark-slate" id="toggle_preview">Toggle Preview</span>
+                        <span class="button button--citrus" id="copy">Copy Handoff</span>
+                        <span class="button button--citrus" id="generate">Generate Handoff</span>
+                    </section>
+                </footer>
+            </section>
+            <section class="page_item" id="time_master">
+
+            </section>
             <section class="preview">
                 <div class="preview_container">
                     <div class="zendesk-comment">
@@ -155,16 +170,6 @@
                     </div>
                 </div>
             </section>
-            <footer class="footer">
-                <section class="footer_components footer_components--left">
-                    <span class="footer_title" id="handoff_title"></span>
-                </section>
-                <section class="footer_components footer_components--right">
-                    <span class="button button--dark-slate" id="toggle_preview">Toggle Preview</span>
-                    <span class="button button--citrus" id="copy">Copy Handoff</span>
-                    <span class="button button--citrus" id="generate">Generate Handoff</span>
-                </section>
-            </footer>
         </main>
 
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>
