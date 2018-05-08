@@ -1,0 +1,17 @@
+.tabs {
+    height: 80px;
+    background-color: $rain;
+
+    &_item {
+        display: inline-block;
+        padding: 0 20px;
+        color: $white;
+        text-transform: uppercase;
+        line-height: 80px;
+        cursor: pointer;
+
+        &--active {
+            background-color: $q4-blue;
+        }
+    }
+}

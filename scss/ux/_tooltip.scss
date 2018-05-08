@@ -1,0 +1,167 @@
+$arrow-width: 20px;
+$arrow-height: 10px;
+$arrow-spacing: 4px;
+$side-arrow-width: 10px;
+$side-arrow-height: 30px;
+
+@mixin arrow($position: bottom, $alignment: left, $color: $mustard) {
+
+    // Square off corners, depending on which corner/edge the arrow is appearing on
+    @if $position == top and $alignment == left {
+        border-top-left-radius: 0;
+    }
+    @if $position == top and $alignment == right {
+        border-top-right-radius: 0;
+    }
+    @if $position == bottom and $alignment == left {
+        border-bottom-left-radius: 0;
+    }
+    @if $position == bottom and $alignment == right {
+        border-bottom-right-radius: 0;
+    }
+
+    &:before {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+
+        top: auto;
+        bottom: auto;
+        left: auto;
+        right: auto;
+
+        border: 0 solid transparent;
+    }
+
+    @if $position == top or $position == bottom {
+        &:before {
+            border-width: $arrow-height/2 $arrow-width/2;
+
+            @if $position == top {
+                bottom: 100%;
+                border-bottom-color: $color;
+            } @else {
+                top: 100%;
+                border-top-color: $color;
+            }
+
+            @if $alignment == left {
+                left: 0;
+                border-right-color: $color;
+            } @else {
+                right: 0;
+                border-left-color: $color;
+            }
+        }
+    }
+
+    @if $position == left or $position == right {
+        &:before {
+            border-width: $side-arrow-height/2 $side-arrow-width;
+            top: calc(50% - #{$side-arrow-height/2});
+
+            @if $position == left {
+                right: 100%;
+                border-right-color: $color;
+            }
+
+            @if $position == right {
+                left: 100%;
+                border-left-color: $color;
+            }
+        }
+    }
+}
+
+@mixin defaults {
+    border-radius: 3px;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+}
+
+@mixin position-and-color($bg, $color, $arrow-color) {
+    background-color: $bg;
+    color: $color;
+
+    &, &--top,
+    &--top-left {
+        @include defaults;
+        @include arrow(bottom, left, $arrow-color);
+
+        left: 0;
+        bottom: calc(100% + #{$arrow-height + $arrow-spacing});
+    }
+
+    &--top-right {
+        @include defaults;
+        @include arrow(bottom, right, $arrow-color);
+
+        right: 0;
+        bottom: calc(100% + #{$arrow-height + $arrow-spacing});
+    }
+
+    &--bottom-left {
+        @include defaults;
+        @include arrow(top, left, $arrow-color);
+
+        left: 0;
+        top: calc(100% + #{$arrow-height + $arrow-spacing});
+    }
+
+    &--bottom,
+    &--bottom-right {
+        @include defaults;
+        @include arrow(top, right, $arrow-color);
+
+        right: 0;
+        top: calc(100% + #{$arrow-height + $arrow-spacing});
+    }
+
+    &--right,
+    &--left {
+        @include defaults;
+        top: calc(50% - #{$side-arrow-height/2});
+        white-space: nowrap;
+    }
+
+    &--right {
+        @include arrow(left, null, $arrow-color);
+
+        left: calc(100% + #{$side-arrow-height/2});
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &--left {
+        @include arrow(right, null, $arrow-color);
+
+        right: calc(100% + #{$side-arrow-height/2});
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.tooltip {
+    position: absolute;
+    display: none;
+    font-size: $body-font-size;
+    line-height: 30px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0 10px;
+    box-shadow: rgba(0, 0, 0, .2) 0 0 20px;
+    pointer-events: none;
+    z-index: 30;
+
+    @include position-and-color($citrus, $dark-slate, $mustard);
+
+    &--no-arrow {
+        &:before {
+            display: none;
+        }
+        border-radius: 3px !important;
+    }
+}

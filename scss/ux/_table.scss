@@ -1,0 +1,100 @@
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border: none;
+
+    &_header {
+        color: $white;
+
+        th {
+            font-weight: 300;
+        }
+    }
+
+    &_title {
+        margin-left: -40px;
+    }
+
+    &_body {
+        tr {
+            border-bottom: 1px solid $light-grey;
+        }
+    }
+
+    &_row {
+        &--title {
+            background-color: $steel;
+
+            th {
+                height: 25px;
+                padding: 0 10px;
+                text-align: center;
+                text-transform: uppercase;
+
+                &:first-child {
+                    display: block;
+                    float: left;
+                    width: 0;
+                }
+            }
+        }
+
+        &--header {
+            background-color: $sky;
+
+            th {
+                height: 50px;
+                text-align: left;
+            }
+        }
+    }
+
+    &_cell {
+        height: 40px;
+        padding: 0 10px;
+        vertical-align: middle;
+
+        &:first-child, &:first-child > div {
+            width: 20px;
+            text-align: center;
+        }
+
+        &:nth-child(2) > div {
+            max-width: 380px;
+        }
+
+        &:nth-last-child(4), &:nth-last-child(4) > div {
+            width: 130px;
+        }
+
+        &:nth-last-child(2), &:nth-last-child(2) > div,
+        &:nth-last-child(3), &:nth-last-child(3) > div {
+            width: 10px;
+        }
+
+        &:last-child, &:last-child > div {
+            width: 100px;
+        }
+
+        & > div {
+            max-width: 400px;
+            line-height: 40px;
+            @include truncate();
+        }
+    }
+
+    &_delete {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: $cherry;
+        color: $white;
+        text-align: center;
+        line-height: 16px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+}

@@ -2,6 +2,7 @@ var handoff = {
     develop: false,
 
     state: {
+        items: [],
         files: [],
         links: [],
         comments: []
@@ -9,15 +10,19 @@ var handoff = {
 
     options: {
         selectors: {
+            tabs: '.tabs',
             previewContainer: '.preview',
             renderContainer: '#preview',
             filesContainer: '#files',
             linksContainer: '#links',
             commentsContainer: '#comments',
             lists: '.field--list',
+            items: '#items',
+            pastebin: 'pastebin',
             previewButton: '#toggle_preview',
             copyButton: '#copy',
-            generateButton: '#generate'
+            generateButton: '#generate',
+            handoffTitle: '#handoff_title'
         }
     },
 
@@ -28,11 +33,18 @@ var handoff = {
 
         inst.initPlugins();
         inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
+        inst.initTabs($(selectors.tabs));
         inst.initLists(selectors.lists);
+        inst.initItems(selectors.items);
+        inst.initItemSubmit(selectors.pastebin);
         inst.initGenerate(selectors.generateButton);
 
         if (develop || this.develop) {
             inst._renderSampleData(selectors.renderContainer, data);
+        }
+
+        if (window.location.hash) {
+            inst.updateView(window.location.hash);
         }
     },
     initPlugins: function() {
@@ -59,6 +71,18 @@ var handoff = {
             }
         }());
     },
+
+    initTabs: function($tabs) {
+        var inst = this;
+
+        $tabs.on('click', '.tabs_item', function() {
+            var $this = $(this),
+                location = $this.data('location');
+
+            inst.updateView(location);
+        });
+    },
+
     initPreview: function($preview, $toggle) {
         $toggle.on('click', function() {
             $preview.toggleClass('preview--open');
@@ -115,12 +139,146 @@ var handoff = {
         $('#' + target).html(Mustache.render(templates[target], array)).next().val('');
     },
 
+    initItems: function(selector) {
+        var inst = this,
+            $items = $(selector);
+
+        $items.on('click', '.table_delete', function() {
+            var state = inst.state,
+                $this = $(this),
+                itemIndex = $this.closest('table').index(),
+                rowIndex = $this.closest('tr').index();
+
+            inst._removeFromState({
+                target: 'items',
+                subTarget: state.items[itemIndex].rows
+            }, rowIndex, function(array) {
+                inst.renderItems(array);
+            });
+        });
+    },
+    initItemSubmit: function(selector) {
+        var inst = this,
+            _pastebin = document.getElementById(selector);
+
+        _pastebin.addEventListener('paste', function(event) {
+            _pastebin.classList.remove('field_input--error');
+            inst.onItemSubmit(_pastebin, event);
+        });
+    },
+    onItemSubmit: function(input, event) {
+        var inst = this,
+            pastedData = event.clipboardData.getData('text/html'),
+            html = inst._cleanPaste(pastedData);
+            data = inst._mapDOM(html || {});
+
+        if (!data || !data.length) {
+            input.classList.add('field_input--error');
+
+            setTimeout(function() {
+                input.value = null;
+                input.blur();
+            }, 0);
+
+            return;
+        }
+
+        inst._changeState({items: data}, function(state) {
+            inst.renderItems(state.items);
+        });
+
+        setTimeout(function() {
+            input.value = null;
+            input.blur();
+        }, 0);
+    },
+    renderItems: function(array) {
+        $('#items').html(Mustache.render(templates['items'], array));
+    },
+    _cleanPaste: function(paste) {
+        var regex = new RegExp('<input.*?>| id=".*?"| style=".*?"| onclick=".*?"| onmouseover=".*?"|<br>', 'g');
+        return paste.replace(regex, '');
+    },
+    _mapDOM: function(html) {
+        var document;
+
+        if (window.DOMParser) {
+            var parser = new DOMParser();
+            document = parser.parseFromString(html, "text/xml");
+        } else {
+            document = new ActiveXObject("Microsoft.XMLDOM");
+            document.async = false;
+            document.loadXML(html);
+        }
+
+        return this._generateItems(document);
+    },
+    _generateItems: function(document) {
+        var titleElements = document.getElementsByClassName('ToDoTitleContainer'),
+            gridElements = document.getElementsByClassName('ToDoGrid'),
+            data = [];
+
+        if (!titleElements || !titleElements.length || !gridElements || !gridElements.length) {
+            return;
+        }
+
+        for (i = 0; i < titleElements.length; i++) {
+            data.push({
+                title: this._getText(titleElements[i]),
+                columns: this._getColumns(gridElements[i]) || [],
+                rows: this._getRows(gridElements[i]) || []
+            });
+        }
+
+        return data;
+    },
+    _getText: function(element) {
+        return element && element.firstChild && element.firstChild.textContent || null;
+    },
+    _getColumns: function(element) {
+        var body = element && element.firstChild,
+            header = body && body.firstChild,
+            cells = header && header.childNodes,
+            columns = [];
+
+        if (cells && cells.length) {
+            for (c = 1; c < cells.length - 1; c++) {
+                var cell = cells[c];
+                columns.push(cell.textContent);
+            }
+        }
+
+        return columns;
+    },
+    _getRows: function(element) {
+        var body = element && element.firstChild,
+            items = body && body.childNodes,
+            rows = [];
+
+        if (items && items.length) {
+            for (r = 1; r < items.length; r++) {
+                var cells = items[r].childNodes;
+                if (cells && cells.length) {
+                    var rowData = [];
+                    for (c = 1; c < cells.length - 1; c++) {
+                        var cell = cells[c];
+                        rowData.push(cell.textContent);
+                    }
+                    rows.push(rowData);
+                }
+            }
+        }
+
+        return rows;
+    },
+
     initGenerate: function(selector) {
         var inst = this;
 
         $(selector).on('click', function() {
             inst.serializeData();
             inst.generatePreview(inst.options.selectors.renderContainer, inst.state);
+            inst.generateTitle(inst.options.selectors.handoffTitle, inst.state);
         });
     },
     serializeData: function() {
@@ -139,7 +297,7 @@ var handoff = {
             publish: {
                 date: data.date || 'Not Available',
                 time: data.time ? this._convertTime(data.time) : 'Not Available',
-                docsRequired: data['documents-required'] === 'on',
+                docsRequired: data['document-required'] === 'on',
                 lockedFiles: data['locked-files'] === 'on',
                 emailAlert: data.email
             }
@@ -149,23 +307,80 @@ var handoff = {
         var $preview = $(selector);
         $preview.html(Mustache.render(templates.handoff, data));
     },
+    generateTitle: function(selector, data) {
+        var $title = $(selector),
+            date = this._convertDate(data.publish),
+            clientName = (data.client && data.client.name && data.client.name !== 'Not Available') ? data.client.name : '';
 
-    _changeState: function(newState) {
+        var template = [
+            data.client && data.client.highAlert ? '[!]' : '',
+            date,
+            (date && clientName) ? ' - ' : ' ',
+            clientName,
+            data.publish && data.publish.docsRequired ? ' [docs required]' : ''
+        ].join('');
+
+        template.trim().length ? $title.text((template) || '') : '';
+    },
+    _convertDate: function(data) {
+        var dateString = '';
+
+        if (!data) {
+            return dateString;
+        }
+
+        var date = (data.date && data.date !== 'Not Available') ? data.date : false,
+            time = (data.time && data.time !== 'Not Available') ? data.time : false;
+
+        (date || time) ? dateString += '[' : null;
+        (date) ? dateString += date : '';
+        (date && time) ? dateString += ' / ' : null;
+        (time) ? dateString += time : '';
+        (date || time) ? dateString += '] ' : null;
+
+        return dateString;
+    },
+
+    updateView: function(view) {
+        var $tabs = $('.tabs_item'),
+            $pages = $('.page_item');
+
+        if (view.indexOf('#') >= 0) {
+            view = view.slice(1);
+        }
+
+        $tabs.removeClass('tabs_item--active');
+        $('.tabs_item[data-location="' + view + '"]').addClass('tabs_item--active');
+
+        $pages.removeClass('page_item--active');
+        $('#' + view).addClass('page_item--active');
+
+        window.location.hash = view;
+        $(window).scrollTop(0);
+    },
+
+    _changeState: function(newState, callback) {
         var state = $.extend({}, this.state, newState);
         this.state = state;
-        return state;
+        callback && callback(this.state);
     },
     _pushToState: function(target, value, callback) {
         var data = this.state[target];
         data.push(value);
-        callback(data);
+        callback && callback(data);
     },
     _removeFromState: function(target, index, callback) {
         if (index < 0) {
             return;
         }
-        this.state[target].splice(index, 1);
-        callback(this.state[target]);
+
+        if (typeof target === 'string') {
+            this.state[target].splice(index, 1);
+            callback(this.state[target]);
+        } else {
+            target.subTarget.splice(index, 1);
+            callback(this.state[target.target]);
+        }
     },
 
     _convertTime: function(time) {
@@ -184,5 +399,3 @@ var handoff = {
         this.generatePreview(selector, data);
     }
 };
-
-handoff.init();

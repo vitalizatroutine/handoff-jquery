@@ -5,6 +5,41 @@ $submit-width: 40px;
 .field {
     display: inline-block;
 
+    &_delete, &_help {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 16px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    &_delete {
+        margin-right: 8px;
+        background-color: $cherry;
+        color: $white;
+    }
+
+    &_help {
+        position: relative;
+        margin-left: 8px;
+        background-color: $citrus;
+        color: $dark-slate;
+        vertical-align: middle;
+
+        &:before {
+            content: '?';
+        }
+
+        &:hover {
+            .tooltip {
+                display: block;
+            }
+        }
+    }
+
     &--text, &--textarea {
         .field {
             &_label {
@@ -73,7 +108,7 @@ $submit-width: 40px;
                 }
                 &:checked + label:before {
                     content: "\2713";
-                    background: $q4-blue;
+                    background: $rain;
                 }
 
                 &--teal {
@@ -125,7 +160,7 @@ $submit-width: 40px;
                     }
                 }
                 &:checked + label:before {
-                    background: $q4-blue;
+                    background: $rain;
                 }
 
                 &--teal {
@@ -192,24 +227,11 @@ $submit-width: 40px;
                 display: block;
                 width: $submit-width;
                 height: $input-height;
-                background-color: $q4-blue;
+                background-color: $rain;
                 color: $white;
                 font-size: 28px;
                 text-align: center;
                 line-height: $input-height;
-                cursor: pointer;
-            }
-            &_delete {
-                display: inline-block;
-                width: 18px;
-                height: 18px;
-                margin-right: 8px;
-                border-radius: 50%;
-                background-color: $cherry;
-                color: $white;
-                text-align: center;
-                line-height: 16px;
-                vertical-align: middle;
                 cursor: pointer;
             }
         }
@@ -222,6 +244,61 @@ $submit-width: 40px;
                 height: $input-height * 4;
                 line-height: 18px;
                 resize: none;
+            }
+            &_submit {
+                height: $input-height * 4;
+                line-height: $input-height * 4;
+            }
+        }
+    }
+
+    &--submit {
+        line-height: $input-height;
+
+        .field {
+            &_input {
+                display: inline-block;
+                width: 105px;
+                height: $input-height;
+                line-height: 18px;
+                padding: 10px 8px;
+                background-color: $teal;
+                border: none;
+                border-radius: 3px;
+                box-shadow: inset $dark-teal 0 0 10px;
+                font-family: $body-font-family;
+                font-weight: $body-font-weight;
+                color: transparent;
+                white-space: nowrap;
+                overflow: hidden;
+                vertical-align: middle;
+                resize: none;
+
+                &::placeholder {
+                    font-family: $body-font-family;
+                    font-weight: $body-font-weight;
+                    color: $white;
+                    text-indent: -95px;
+                }
+
+                &:focus {
+                    outline: none;
+                    background-color: $dark-teal;
+                    box-shadow: inset $avocado 0 0 10px;
+
+                    &::placeholder {
+                        text-indent: 0;
+                    }
+                }
+
+                &--error, &--error:focus {
+                    background-color: $spice;
+                    box-shadow: inset $cherry 0 0 10px;
+
+                    &::placeholder {
+                        text-indent: -245px;
+                    }
+                }
             }
             &_submit {
                 height: $input-height * 4;

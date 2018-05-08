@@ -16,4 +16,9 @@
             float: left;
         }
     }
+
+    &_title {
+        line-height: 40px;
+        color: $white;
+    }
 }

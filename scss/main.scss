@@ -4,10 +4,13 @@
 
 @import 'shared/page';
 @import 'shared/form';
+@import 'shared/tabs';
 @import 'shared/header';
 @import 'shared/footer';
 
+@import 'ux/table';
 @import 'ux/button';
+@import 'ux/tooltip';
 @import 'ux/field';
 @import 'ux/preview';
 
@@ -25,6 +28,7 @@
 
 html, body {
     height: 100%;
+    background-color: $charcoal;
 }
 
 html {
