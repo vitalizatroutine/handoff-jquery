@@ -5,7 +5,20 @@ var handoff = {
         items: [],
         files: [],
         links: [],
-        comments: []
+        comments: [],
+        timers: [{
+            client: 'Goldcorp',
+            dateTime: '2018-05-21T14:00:00-04:00',
+            ticket: '101234'
+        }, {
+            client: 'Barrick Gold',
+            dateTime: '2018-05-11T07:00:00-04:00',
+            ticket: '101233'
+        }, {
+            client: 'Test',
+            dateTime: '2018-05-09T22:14:25-04:00',
+            ticket: '101233'
+        }]
     },
 
     options: {
@@ -22,8 +35,10 @@ var handoff = {
             previewButton: '#toggle_preview',
             copyButton: '#copy',
             generateButton: '#generate',
-            handoffTitle: '#handoff_title'
-        }
+            handoffTitle: '#handoff_title',
+            timeMaster: '.time-master'
+        },
+        dateFormat: 'MMMM Do, YYYY h:mm:ssa'
     },
 
     init: function(develop) {
@@ -38,6 +53,7 @@ var handoff = {
         inst.initItems(selectors.items);
         inst.initItemSubmit(selectors.pastebin);
         inst.initGenerate(selectors.generateButton);
+        inst.initTimeMaster(selectors.timeMaster);
 
         if (develop || this.develop) {
             inst._renderSampleData(selectors.renderContainer, data);
@@ -339,6 +355,59 @@ var handoff = {
         (date || time) ? dateString += '] ' : null;
 
         return dateString;
+    },
+
+    initTimeMaster: function(selector) {
+        var inst = this,
+            timers = (localStorage.getItem('timers') && JSON.parse(localStorage.getItem('timers'))) || [];
+
+        inst.renderTimers(selector, timers);
+    },
+    renderTimers: function(target, array) {
+        var inst = this,
+            format = inst.options.dateFormat;
+
+        var timers = array.map(function(timer) {
+            timer.formattedDateTime = moment(timer.dateTime).format(format);
+            return timer;
+        });
+
+        timers.sort(function(a, b){
+            return new Date(a.dateTime) - new Date(b.dateTime);
+        });
+
+        $(target).html(Mustache.render(templates.timer, timers));
+        this.initTimers();
+    },
+    initTimers: function() {
+        var inst = this,
+            selector = inst.options.selectors.timeMaster;
+
+        setInterval(function(){
+            $('.time-master_item').each(function() {
+                var $this = $(this),
+                    dateTime = $this.data('datetime'),
+                    timeLeft = moment.duration(moment(dateTime) - moment()),
+                    countDown = timeLeft.hours() + "h " + timeLeft.minutes() + "m " + timeLeft.seconds() + 's';
+
+                $this.find('.time-master_countdown > span').text(countDown);
+
+                if (timeLeft.days() === 0 && timeLeft.hours() === 0 && timeLeft.minutes() <= 4) {
+                    $this.attr('class', 'time-master_item time-master_item--soon');
+                }
+
+                if (timeLeft.days() === 0 && timeLeft.hours() === 0 && timeLeft.minutes() <= 0) {
+                    $this.attr('class', 'time-master_item time-master_item--very-soon');
+                }
+
+                if (timeLeft.seconds() < 0) {
+                    inst._removeFromState('timers', $this.index(), function(array) {
+                        inst.renderTimers(selector, array);
+                        localStorage.setItem('timers', JSON.stringify(array));
+                    });
+                }
+            });
+        }, 1000);
     },
 
     updateView: function(view) {

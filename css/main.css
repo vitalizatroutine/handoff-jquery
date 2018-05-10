@@ -716,6 +716,10 @@ template {
   cursor: pointer; }
   .button + .button {
     margin-left: 6px; }
+  .button--square {
+    padding: 0;
+    width: 36px;
+    text-align: center; }
   .button--citrus {
     background-color: #f1af0f;
     color: #22272b; }
@@ -1379,6 +1383,51 @@ template {
 
 .zendesk-comment .event:not(.is-public) .zd-comment {
   margin-bottom: 12px; }
+
+.time-master {
+  width: 100%;
+  max-width: 1080px;
+  padding: 30px;
+  margin-left: -30px; }
+  .time-master_item {
+    display: inline-block;
+    width: 33%;
+    padding-left: 20px;
+    margin-bottom: 30px;
+    vertical-align: top; }
+    .time-master_item--soon .time-master_countdown {
+      background-color: #f1af0f; }
+    .time-master_item--very-soon .time-master_countdown {
+      background-color: #ec6a4c; }
+  .time-master_countdown {
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #297ac5;
+    font-size: 26px;
+    color: #ffffff; }
+    .time-master_countdown > span {
+      line-height: 36px; }
+    .time-master_countdown:hover .time-master_actions {
+      display: block; }
+  .time-master_actions {
+    display: none;
+    float: right; }
+    .time-master_actions .button {
+      float: left;
+      margin: 0; }
+  .time-master_details {
+    margin: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 18px; }
+    .time-master_details i {
+      vertical-align: text-bottom;
+      font-size: 18px;
+      margin-right: 5px; }
+    .time-master_details > div {
+      margin-bottom: 10px; }
+      .time-master_details > div ~ div {
+        display: inline-block;
+        margin-right: 20px; }
 
 /*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
 /*
