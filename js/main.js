@@ -412,6 +412,10 @@ var handoff = {
 
                 $timer.find('.time-master_countdown > span').text(countDown);
 
+                if (timeLeft.days() >= 0 && timeLeft.hours() >= 8) {
+                    $timer.attr('class', 'time-master_item time-master_item--not-soon');
+                }
+
                 if (timeLeft.days() === 0 && timeLeft.hours() === 0 && timeLeft.minutes() <= 4) {
                     $timer.attr('class', 'time-master_item time-master_item--soon');
                 }
@@ -437,7 +441,7 @@ var handoff = {
             inst.addTimer(timers, {
                 id: inst._createId(),
                 client: 'New Test',
-                dateTime: moment().add('5', 'minutes').format(),
+                dateTime: moment().add('7', 'minutes').format(),
                 ticket: 123456
             });
         });

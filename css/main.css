@@ -1403,6 +1403,8 @@ template {
       background-color: #ec6a4c; }
     .time-master_item--past .time-master_countdown {
       background-color: #e74c3c; }
+    .time-master_item--not-soon .time-master_countdown {
+      background-color: #939ba0; }
     .time-master_item--new {
       line-height: 125px;
       text-align: center;

@@ -32,6 +32,12 @@
             }
         }
 
+        &--not-soon {
+            .time-master_countdown {
+                background-color: $silver;
+            }
+        }
+
         &--new {
             line-height: 125px;
             text-align: center;
