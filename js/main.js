@@ -5,7 +5,24 @@ var handoff = {
         items: [],
         files: [],
         links: [],
-        comments: []
+        comments: [],
+        timers: [{
+            client: 'Goldcorp',
+            dateTime: '2018-05-21T14:00:00-04:00',
+            ticket: 101234,
+            id: 376861093969
+        }, {
+            client: 'Barrick Gold',
+            dateTime: '2018-05-11T07:00:00-04:00',
+            ticket: 101233,
+            id: 666583948036
+        }, {
+            client: 'Test',
+            dateTime: '2018-05-10T19:42:54-04:00',
+            ticket: 101233,
+            id: 725148931398
+        }],
+        intervals: []
     },
 
     options: {
@@ -22,8 +39,10 @@ var handoff = {
             previewButton: '#toggle_preview',
             copyButton: '#copy',
             generateButton: '#generate',
-            handoffTitle: '#handoff_title'
-        }
+            handoffTitle: '#handoff_title',
+            timeMaster: '.time-master'
+        },
+        dateFormat: 'MMMM Do, YYYY h:mm:ssa'
     },
 
     init: function(develop) {
@@ -32,12 +51,8 @@ var handoff = {
             selectors = options.selectors;
 
         inst.initPlugins();
-        inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
-        inst.initTabs($(selectors.tabs));
-        inst.initLists(selectors.lists);
-        inst.initItems(selectors.items);
-        inst.initItemSubmit(selectors.pastebin);
-        inst.initGenerate(selectors.generateButton);
+        inst.initHandoffGenerator();
+        inst.initTimeMaster();
 
         if (develop || this.develop) {
             inst._renderSampleData(selectors.renderContainer, data);
@@ -83,9 +98,35 @@ var handoff = {
         });
     },
 
+    initHandoffGenerator: function() {
+        var inst = this,
+            options = inst.options,
+            selectors = options.selectors;
+
+        inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
+        inst.initCopy($(selectors.copyButton));
+        inst.initTabs($(selectors.tabs));
+        inst.initLists(selectors.lists);
+        inst.initItems(selectors.items);
+        inst.initItemSubmit(selectors.pastebin);
+        inst.initGenerate(selectors.generateButton);
+    },
+
     initPreview: function($preview, $toggle) {
         $toggle.on('click', function() {
             $preview.toggleClass('preview--open');
+        });
+    },
+
+    initCopy: function($toggle) {
+        $toggle.on('click', function() {
+            var range = document.createRange();
+
+            range.selectNode(document.getElementById('preview'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('Copy');
+            window.getSelection().removeAllRanges();
         });
     },
 
@@ -341,6 +382,121 @@ var handoff = {
         return dateString;
     },
 
+    initTimeMaster: function() {
+        var inst = this,
+            options = inst.options,
+            selectors = options.selectors,
+            timers = (localStorage.getItem('timers') && JSON.parse(localStorage.getItem('timers'))) || [];
+
+        inst.renderTimers(selectors.timeMaster, timers);
+        inst.initNewTimer(selectors.timeMaster, timers);
+        inst.initTimerActions(selectors.timeMaster, timers);
+    },
+    renderTimers: function(selector, array) {
+        var inst = this,
+            format = inst.options.dateFormat;
+
+        array.sort(function(a, b){
+            return new Date(a.dateTime) - new Date(b.dateTime);
+        });
+
+        inst._changeState({
+            timers: array
+        });
+
+        var timers = array.map(function(timer) {
+            timer.formattedDateTime = moment(timer.dateTime).format(format);
+            return timer;
+        });
+
+        $(selector).html(Mustache.render(templates.timer, timers));
+        this.initTimers(timers);
+    },
+    initTimers: function(timers) {
+        var inst = this,
+            selector = inst.options.selectors.timeMaster;
+
+        inst.state.intervals.push(setInterval(function(){
+            (timers || []).forEach(function(timer) {
+                var dateTime = timer.dateTime,
+                    timeLeft = moment.duration(moment(dateTime) - moment()),
+                    countDown = timeLeft.hours() + "h " + timeLeft.minutes() + "m " + timeLeft.seconds() + 's',
+                    $timer = $('#' + timer.id);
+
+                $timer.find('.time-master_countdown > span').text(countDown);
+
+                if (timeLeft.days() >= 0 && timeLeft.hours() >= 8) {
+                    $timer.attr('class', 'time-master_item time-master_item--not-soon');
+                }
+
+                if (timeLeft.days() === 0 && timeLeft.hours() === 0 && timeLeft.minutes() <= 4) {
+                    $timer.attr('class', 'time-master_item time-master_item--soon');
+                }
+
+                if (timeLeft.days() === 0 && timeLeft.hours() === 0 && timeLeft.minutes() <= 0) {
+                    $timer.attr('class', 'time-master_item time-master_item--very-soon');
+                }
+
+                if (timeLeft.seconds() < 0) {
+                    $timer.attr('class', 'time-master_item time-master_item--past');
+                }
+
+                if (timeLeft.minutes() <= '-1') {
+                    inst.removeTimer($timer.index());
+                }
+            });
+        }, 1000));
+    },
+    initNewTimer: function(selector, timers) {
+        var inst = this;
+
+        $(selector).on('click', '.time-master_item--new', function() {
+            inst.addTimer(timers, {
+                id: inst._createId(),
+                client: 'New Test',
+                dateTime: moment().add('7', 'minutes').format(),
+                ticket: 123456
+            });
+        });
+    },
+    initTimerActions: function(selector) {
+        var inst = this;
+
+        $(selector).on('click', '.time-master_delete', function() {
+            var $this = $(this),
+                $timer = $this.closest('.time-master_item');
+
+            inst.removeTimer($timer.index());
+        });
+    },
+    addTimer: function(timers, data) {
+        var inst = this,
+            selector = inst.options.selectors.timeMaster;
+
+        clearInterval(inst.state.intervals[0]);
+        inst._changeState({
+            intervals: []
+        });
+
+        timers.push(data);
+        localStorage.setItem('timers', JSON.stringify(timers));
+        inst.renderTimers(selector, timers);
+    },
+    removeTimer: function(index) {
+        var inst = this,
+            selector = inst.options.selectors.timeMaster;
+
+        clearInterval(inst.state.intervals[0]);
+        inst._changeState({
+            intervals: []
+        });
+
+        inst._removeFromState('timers', index, function(array) {
+            inst.renderTimers(selector, array);
+            localStorage.setItem('timers', JSON.stringify(array));
+        });
+    },
+
     updateView: function(view) {
         var $tabs = $('.tabs_item'),
             $pages = $('.page_item');
@@ -357,6 +513,10 @@ var handoff = {
 
         window.location.hash = view;
         $(window).scrollTop(0);
+    },
+
+    _createId: function() {
+        return (100000000000 + Math.random() * 900000000000).toFixed();
     },
 
     _changeState: function(newState, callback) {

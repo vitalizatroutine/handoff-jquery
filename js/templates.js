@@ -115,5 +115,41 @@ var templates = {
                 '<span class="field_value">{{.}}</span>' +
             '</article>' +
         '{{/.}}'
+    ),
+    timer: (
+        '{{#.}}' +
+            '<div id={{id}} class="time-master_item">' +
+                '<header class="time-master_countdown">' +
+                    '<span>One moment...</span>' +
+                    '<div class="time-master_actions">' +
+                       '<span class="time-master_edit button--square button button--transparent">' +
+                            '<i class="q4i-edit-4pt"></i>' +
+                        '</span>' +
+                        '<span class="time-master_delete button--square button button--transparent">' +
+                            '<i class="q4i-trashbin-4pt"></i>' +
+                        '</span>' +
+                    '</div>' +
+                '</header>' +
+                '<section class="time-master_details">' +
+                    '<div class="time-master_client">' +
+                        '<i class="q4i-contact-4pt"></i>' +
+                        '<span>{{client}}</span>' +
+                    '</div>' +
+                    '<div class="time-master_time">' +
+                        '<i class="q4i-time-4pt"></i>' +
+                        '<span>{{formattedDateTime}} ET</span>' +
+                    '</div>' +
+                    '<div class="time-master_ticket">' +
+                       '<i class="q4i-reportno-4pt"></i>' +
+                        '<a href="{{ticket}}" target="_blank">#{{ticket}}</a>' +
+                    '</div>' +
+                '</section>' +
+            '</div>' +
+        '{{/.}}' +
+        '<div class="time-master_item time-master_item--new">' +
+            '<div class="time-master_item-wrap">' +
+                '<i class="q4i-add-2pt"></i>' +
+            '</div>' +
+        '</div>'
     )
 };

@@ -1,0 +1,128 @@
+.time-master {
+    width: 100%;
+    max-width: 1080px;
+    padding: 30px;
+
+    &_item {
+        width: 100%;
+        min-height: 125px;
+        margin-bottom: 30px;
+        vertical-align: top;
+
+        &-wrap {
+            border: 1px dashed $soft-grey;
+            border-radius: 5px;
+        }
+
+        &--soon {
+            .time-master_countdown {
+                background-color: $citrus;
+            }
+        }
+
+        &--very-soon {
+            .time-master_countdown {
+                background-color: $spice;
+            }
+        }
+
+        &--past {
+            .time-master_countdown {
+                background-color: $cherry;
+            }
+        }
+
+        &--not-soon {
+            .time-master_countdown {
+                background-color: $silver;
+            }
+        }
+
+        &--new {
+            line-height: 125px;
+            text-align: center;
+            cursor: pointer;
+
+            i {
+                font-size: 18px;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            float: left;
+            width: 50%;
+            padding-right: 30px;
+
+            &:nth-child(2n) {
+                padding-right: 0;
+            }
+        }
+
+        @media screen and (min-width: 1080px) {
+            float: left;
+            width: 33.333%;
+            padding-right: 30px;
+
+            &:nth-child(2n) {
+                padding-right: 30px;
+            }
+
+            &:nth-child(3n) {
+                padding-right: 0;
+            }
+        }
+    }
+
+    &_countdown {
+        padding: 10px;
+        border-radius: 4px;
+        background-color: $rain;
+        font-size: 26px;
+        color: $white;
+
+        & > span {
+            line-height: 36px;
+        }
+
+        &:hover {
+            .time-master_actions {
+                display: block;
+            }
+        }
+    }
+
+    &_actions {
+        display: none;
+        float: right;
+
+        .button {
+            float: left;
+            margin: 0;
+        }
+    }
+
+    &_details {
+        margin-top: 10px;
+        border-bottom: 1px solid $soft-grey;
+        line-height: 18px;
+
+        i {
+            vertical-align: text-bottom;
+            font-size: 18px;
+            margin-right: 5px;
+        }
+
+        & > div {
+            margin-bottom: 10px;
+
+            & ~ div {
+                display: inline-block;
+                margin-right: 20px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
