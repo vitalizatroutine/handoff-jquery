@@ -104,6 +104,7 @@ var handoff = {
             selectors = options.selectors;
 
         inst.initPreview($(selectors.previewContainer), $(selectors.previewButton));
+        inst.initCopy($(selectors.copyButton));
         inst.initTabs($(selectors.tabs));
         inst.initLists(selectors.lists);
         inst.initItems(selectors.items);
@@ -114,6 +115,18 @@ var handoff = {
     initPreview: function($preview, $toggle) {
         $toggle.on('click', function() {
             $preview.toggleClass('preview--open');
+        });
+    },
+
+    initCopy: function($toggle) {
+        $toggle.on('click', function() {
+            var range = document.createRange();
+
+            range.selectNode(document.getElementById('preview'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('Copy');
+            window.getSelection().removeAllRanges();
         });
     },
 
