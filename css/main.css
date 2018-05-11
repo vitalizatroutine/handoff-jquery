@@ -586,7 +586,8 @@ template {
         max-width: 500px;
         margin-right: 10px; }
         .form_section--half + .form_section--half {
-          margin-left: 10px; } }
+          margin-left: 10px;
+          margin-right: 0; } }
   .form_item {
     float: left;
     margin-right: 20px;
@@ -1387,18 +1388,43 @@ template {
 .time-master {
   width: 100%;
   max-width: 1080px;
-  padding: 30px;
-  margin-left: -30px; }
+  padding: 30px; }
   .time-master_item {
-    display: inline-block;
-    width: 33%;
-    padding-left: 20px;
+    width: 100%;
+    min-height: 125px;
     margin-bottom: 30px;
     vertical-align: top; }
+    .time-master_item-wrap {
+      border: 1px dashed #e0e0e0;
+      border-radius: 5px; }
     .time-master_item--soon .time-master_countdown {
       background-color: #f1af0f; }
     .time-master_item--very-soon .time-master_countdown {
       background-color: #ec6a4c; }
+    .time-master_item--past .time-master_countdown {
+      background-color: #e74c3c; }
+    .time-master_item--new {
+      line-height: 125px;
+      text-align: center;
+      cursor: pointer; }
+      .time-master_item--new i {
+        font-size: 18px; }
+    @media screen and (min-width: 768px) {
+      .time-master_item {
+        float: left;
+        width: 50%;
+        padding-right: 30px; }
+        .time-master_item:nth-child(2n) {
+          padding-right: 0; } }
+    @media screen and (min-width: 1080px) {
+      .time-master_item {
+        float: left;
+        width: 33.333%;
+        padding-right: 30px; }
+        .time-master_item:nth-child(2n) {
+          padding-right: 30px; }
+        .time-master_item:nth-child(3n) {
+          padding-right: 0; } }
   .time-master_countdown {
     padding: 10px;
     border-radius: 4px;
@@ -1416,7 +1442,7 @@ template {
       float: left;
       margin: 0; }
   .time-master_details {
-    margin: 10px 0;
+    margin-top: 10px;
     border-bottom: 1px solid #e0e0e0;
     line-height: 18px; }
     .time-master_details i {
@@ -1428,6 +1454,8 @@ template {
       .time-master_details > div ~ div {
         display: inline-block;
         margin-right: 20px; }
+      .time-master_details > div:last-child {
+        margin-right: 0; }
 
 /*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
 /*

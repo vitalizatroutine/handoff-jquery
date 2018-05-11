@@ -38,6 +38,7 @@ $form-gutter: 20px;
 
                 & + & {
                     margin-left: $form-gutter / 2;
+                    margin-right: 0;
                 }
             }
         }
